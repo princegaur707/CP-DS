@@ -22,7 +22,7 @@ int main()
 	for (int i=0; i<n; i++)
 		freq[arr[i]-mini]++;   //Shifting
 
-	for (int i=0; i< maxi-mini+1; i++)
+	for (int i=0; i < maxi-mini+1; i++)
 	{
 		if (freq[i]>0)
 			cout<<i+mini<<"-->"<<freq[i]<<endl;
