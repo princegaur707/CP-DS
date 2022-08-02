@@ -9,7 +9,7 @@ int main()
 	for(i=0;i<n;i++)
 		cin>>arr[i];
 
-	int freq[10005]={0};
+	int freq[15]={0};
 
 	for(i=0;i<n;i++){
 		freq[arr[i]]++;
