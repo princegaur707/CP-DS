@@ -1,46 +1,57 @@
-#include<bits/stdc++.h>
-using namespace std;
-int main()
-{
-	int t;
-	cin>>t;
-
-	while(t--){
-		//cout<<t<<endl;
-		int n;
-		cin>>n;
-		int freq[10]={0};
-
-		for(int i=0; i<n; i++){
-			int x;
-			cin>>x;
-			x=x%10;
-			freq[x]++;			
-		}
-
-		vector<int> v;
-
-		for(int i=0; i<10; i++){
-			for(int j=0; j<min(3,freq[i]);j++){
-				v.push_back(i);
-			}
-		}
-		int l=v.size();
-		int flag=0;
-		for(int i=0; i<l; i++){
-			for (int j=i+1; j<l; j++){
-				for(int k=j+1; k<l; k++){
-					if((v[i]+v[j]+v[k])%10==3){
-						flag=1;
-					}
-				}
-			}
-		}
-		if (flag==1){
-			cout<<"YES"<<endl;
-		}
-		else
-			cout<<"NO"<<endl;
-
-	}
-}
+class Solution {
+    int pivot(MountainArray &a, int n) {
+        int s = 0;
+        int e = n - 1;
+        int ans = -1;
+        while (s <= e) {
+            int mid = (s + e) / 2;
+            if (a.get(mid) < a.get(mid + 1)) {
+                s = mid + 1;
+            } else {
+                e = mid - 1;
+                ans = mid;//Aisa hosakta tha peak par khada hu:
+            }
+        }
+        return ans;
+    }
+    int BSAG(MountainArray &a, int s, int e, int target) {
+        int ans = -1;
+        while (s <= e) {
+            int mid = (s + e) / 2;
+            int value = a.get(mid);
+            if (value == target) {
+                return mid;
+            } else if (value < target) {
+                s = mid + 1;
+            } else {
+                e = mid - 1;
+            }
+        }
+        return ans;
+    }
+    int BSDG(MountainArray &a, int s, int e, int target) {
+        int ans = -1;
+        while (s <= e) {
+            int mid = (s + e) / 2;
+            int value = a.get(mid);
+            if (value == target) {
+                return mid;
+            } else if (value > target) {
+                s = mid + 1;
+            } else {
+                e = mid - 1;
+            }
+        }
+        return ans;
+    }
+public:
+    int findInMountainArray(int target, MountainArray &mountainArr) {
+        int n = mountainArr.length();
+        int k = pivot(mountainArr, n);
+        int ans = BSAG(mountainArr, 0, k, target);
+        if (ans != -1) {
+            return ans;
+        }
+        return BSDG(mountainArr, k + 1, n - 1, target);
+    }
+};
