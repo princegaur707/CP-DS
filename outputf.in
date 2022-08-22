@@ -1,6 +1,16 @@
-YES
-YES
-NO
-NO
-YES
-YES
+201
+money_have: 123
+mid : 50
+money_required: 150
+mid : 24
+money_required: 72
+mid : 37
+money_required: 111
+mid : 43
+money_required: 129
+mid : 40
+money_required: 120
+mid : 41
+money_required: 123
+2
+ans: 13
