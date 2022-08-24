@@ -23,8 +23,8 @@ int main()
 		right_min[i] = min(right_min[i + 1], arr[i]);
 	}
 	int blocks = 1;
-	for(int i = 1; i < n; i++)
-	{
+	for(int i = 1; i < n; i++)//we will not compare first
+	{						 //elements as it should not be
 		if(left_max[i] <= right_min[i])
 		{
 			blocks++;
