@@ -1,12 +1,11 @@
-//https://www.spoj.com/problems/PRIME1/
 #include<bits/stdc++.h>
 using namespace std;
-const int N = 105;
+const int N = 10000005;
 bitset<N>p;
 vector<int>primes;
 void Prime_Sieve()
 {
-	for(int i = 3; i * i <= N; i += 2)
+	for(int i = 3; i * i < N; i += 2)
 	{
 		if(p[i] == 0)
 		{
@@ -44,24 +43,29 @@ void Segmented_Sieve(int a, int b)
 			p1[start - a] = 0;
 		}
 	}
-	for(int i = 0; i < (b - a + 1); i++)
+	for(int j = a; j <= b; j++)
 	{
-		if(p1[i] == 0)
+		if(p1[j - a] == 0)
 		{
-			cout << i + a << " ";
+			cout << j << endl;
 		}
 	}
 }
 
 int main()
 {
+	int t;
+	cin >> t;
 	Prime_Sieve();
-	cout << "Sieve Result --> \n";
-	for(int i = 0; i < primes.size(); i++)
+	while(t--)
 	{
-		cout<< primes[i] << " ";
+		int m , n;
+		cin >> m >> n;
+		if(m == 1)
+		{
+			m++;
+		}
+		Segmented_Sieve(m, n);
+		cout << endl;
 	}
-	cout << endl <<endl;
-	cout << "Segmented Sieve Result -->\n";
-	Segmented_Sieve(100, 200);
 }

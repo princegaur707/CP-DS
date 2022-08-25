@@ -1,31 +1,39 @@
-#include<bits/stdc++.h>
-using namespace std;
-#define int long long
+class Solution {
+    bool compare(int *countp, int *counts) {
 
-int32_t main() {
-    int t;
-    cin >> t;
-    while (t--) {
-        int n;
-        cin >> n;
-        int a[n];
-        int freq[100005] = {0};
-        int sum = 0;
-        freq[0] = 1;
-        for (int i = 0; i < n; i++) {
-            cin >> a[i];
-            sum += a[i];//Prefix array ka kaam kar raha hu.
-
-            sum = sum % n;
-            sum = (sum + n) % n;//Prefix array ka mod;
-            freq[sum]++;//Prefix array elements which are same.
+        for (int i = 0; i < 26; i++) {
+            if (countp[i] != counts[i]) {
+                return false;
+            }
         }
-        int ans = 0;
-
-        for (int i = 0; i < n; i++) {
-            int value = freq[i];
-            ans += (value * (value - 1)) / 2;
-        }
-        cout << ans << endl;
+        return true;
     }
-}
+public:
+    vector<int> findAnagrams(string s, string p) {
+        int lp = p.length();
+        int ls = s.length();
+        vector<int>ans;
+        if (lp > ls) {
+            return ans;
+        }
+        int countp[26] = {0}, counts[26] = {0};
+
+        for (int i = 0; i < lp; i++) {
+            countp[p[i] - 'a']++;
+        }
+
+        for (int i = 0; i < ls; i++) {
+            counts[s[i] - 'a']++;
+            if (i >= lp) {
+                counts[s[i - lp] - 'a']--;
+            }
+            if (i >= lp - 1) {
+                if (compare(counts, countp) == 1) {
+                    ans.push_back(i - lp + 1);
+                }
+            }
+        }
+
+        return ans;
+    }
+};

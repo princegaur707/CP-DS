@@ -38,13 +38,11 @@ int32_t main() //int can be any size >= 16 bits. At different times, both 16 bit
 		}
 	}
 	//cout<<b  <<s <<c   <<endl;
-	int tot = b * pb + s *ps + c * pc;
-	int cnt = -1;
+	int tot = b * pb + s * ps + c * pc;
 	int start = 0;
 	int ans = -1;
-	int e = val;
 	int flag = 0;
-	long long end = val;
+	int end = val;
 	while( start <= end ) //Applying Binary search and checking for middle element.
 	{
 		int mid = (start + end) / 2;
