@@ -1,39 +1,68 @@
-class Solution {
-    bool compare(int *countp, int *counts) {
+#include<bits/stdc++.h>
+using namespace std;
+int table[105] = {0};
 
-        for (int i = 0; i < 26; i++) {
-            if (countp[i] != counts[i]) {
-                return false;
-            }
+void CalculateTable(string p) {
+    int i = 1;
+    int j = 0;
+    int lp = p.length();
+    while (i < lp) {
+
+        while (j > 0 and p[i] != p[j]) {
+            j = table[j - 1];
         }
-        return true;
+
+        if (p[i] == p[j]) {
+            table[i] = j + 1;
+            i++;
+            j++;
+        } else {
+            i++;
+        }
     }
-public:
-    vector<int> findAnagrams(string s, string p) {
-        int lp = p.length();
-        int ls = s.length();
-        vector<int>ans;
-        if (lp > ls) {
-            return ans;
-        }
-        int countp[26] = {0}, counts[26] = {0};
+}
 
-        for (int i = 0; i < lp; i++) {
-            countp[p[i] - 'a']++;
-        }
 
-        for (int i = 0; i < ls; i++) {
-            counts[s[i] - 'a']++;
-            if (i >= lp) {
-                counts[s[i - lp] - 'a']--;
-            }
-            if (i >= lp - 1) {
-                if (compare(counts, countp) == 1) {
-                    ans.push_back(i - lp + 1);
-                }
-            }
+void KMP(string s, string p) {
+    CalculateTable(p);
+
+    int i = 0;//This is for iterating over string.
+    int j = 0;//This is for iterating over pattern.
+    int ls = s.length();
+    int lp = p.length();
+
+    while (i < ls) {
+
+        while (j > 0 and s[i] != p[j]) {
+            j = table[j - 1];
         }
 
-        return ans;
+        if (s[i] == p[j]) {
+            i++;
+            j++;
+        } else {
+            //For the first character only you cannot go prior to this.
+            //for s[i]!=p[j] and j==0 you cannot go to the negative index.
+            i++;
+        }
+        if (j == lp) {
+            cout << i - j << endl;
+            //Starting point of the pattern in the string.
+            j = table[j - 1];
+        }
     }
-};
+    cout << endl;
+}
+
+
+
+
+int main() {
+    int n;
+    while (cin >> n) {
+        string s, p;
+        cin >> p >> s;
+        KMP(s, p);
+    }
+
+}

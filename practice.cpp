@@ -1,26 +1,37 @@
-// CPP code to demonstrate append(str)
-
-#include <iostream>
-#include <string>
+#include<bits/stdc++.h>
 using namespace std;
-
-// Function to demonstrate append()
-void appendDemo(string str1, string str2)
-{
-    // Appends str2 in str1
-    str1.append(str2);
-    cout << "Using append() : ";
-    cout << str1 << endl;
+int table[105] = {0};
+int CalculateTable(char *p)
+ {
+     int i = 0;
+     int j = 1;
+     int lp = strlen(p);
+     int table[lp] = {0};
+     while(j < lp)
+     {
+         while(i > 0 and p[i] != p[j])
+         {
+             i = table[i - 1];
+         }
+         if(p[i] == p[j])
+         {
+             table[j] = i + 1;
+             i++;  
+             j++;
+         }
+         else
+         {
+             j++;
+         }
+     }
+     for(int i = 0; i < lp; i++)
+     {
+        cout << table[i] << " ";
+     }
+     cout << endl;
 }
-
-// Driver code
 int main()
 {
-    string str1("Hello World! ");
-    string str2("GeeksforGeeks");
-
-    cout << "Original String : " << str1 << endl;
-    appendDemo(str1, str2);
-
-    return 0;
+    char p[] = "abcdabaca";
+    CalculateTable(p);
 }
