@@ -56,10 +56,8 @@ int main()
         }
         if(s[left] == '?' and s[right] == '?')
         {
-            int t = min(k, 26);
-            for(int i = 0; i < t; i++)
-            {
- 
+            for(int i = 0; i < 26; i++)
+            { 
                 if(freq[i] == 0)
                 {
                     flag = 1;
