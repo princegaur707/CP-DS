@@ -1,83 +1,83 @@
 //https://codeforces.com/problemset/problem/59/C
 #include<bits/stdc++.h>
 using namespace std;
+bool freq[30] = {0};
+
+void Title(int k, string s)
+{
+    int i = 0;
+    int j = s.length() - 1;
+    while(i < j)
+    {
+        if(s[i] == '?' and s[j] == '?')
+        {
+            i++;
+            j--;
+            continue;
+        }
+        else if(s[i] != '?' and s[j] == '?')
+        {
+            s[j] = s[i];
+            freq[s[i] - 'a' + 1] = true;
+            i++;
+            j--;
+        }
+        else if(s[i] == '?' and s[j] != '?')
+        {
+            s[i] = s[j];
+            freq[s[i] - 'a' + 1] = true;
+            i++;
+            j--;
+        }
+        else if (s[i] == s[j])
+        {
+            freq[s[i] - 'a' + 1] = true;
+            i++;
+            j--;
+        }
+        else
+        {
+            cout << "IMPOSSIBLE";
+            return;
+        }
+    }
+    if(i == j and s[i] != '?')
+    {
+        freq[s[i] - 'a' + 1] = true;
+    }
+    while(i >= 0)
+    {
+        while(k > 1 and freq[k] == true)
+        {
+            k--;
+        }
+        if (s[i] == '?' and s[j] == '?')
+        {
+            s[i] = s[j] = 'a' + k - 1;
+            freq[k] = true;
+            i--; 
+            j++;
+        }
+        else
+        {
+            i--;
+            j++;
+        }
+    }
+    if(k == 1 and freq[k] == true)
+    {
+        cout << s;
+    }
+    else
+    {
+        cout << "IMPOSSIBLE";
+    }
+}
 int main()
 {
     int k;
     cin >> k;
     string s;
     cin >> s;
-    int flag = 0;
-    int ls = s.length();
-    int freq[256] = {0};
-    for(int i = 0; i < 26; i++)
-    {
-        freq[s[i] - 'a']++;
-    }
-    int left = 0;
-    int right = ls-1;
-    while(left <= right)
-    {
-        // cout << endl;
-        // cout<<"left: " << left <<"  right: " << right;
-        if ( k > (ls+1)/2)
-        {
-            cout << "IMPOSSIBLE";
-            break;
-        }
-        if(s[left] != '?' and s[right] != '?')
-        {
-            if(s[left] != s[right])
-            {
-                cout <<"IMPOSSIBLE";
-                break;
-            }
-            else
-            {
-                left++;
-                right--;
-                continue;
-            }
-        }
-        if(s[left] != '?' and s[right] == '?')
-        {
-            // cout<<"hello1";
-            s[right] = s[left];
-            left++;
-            right--;
-            // cout <<s;
-        }
-        if(s[left] == '?' and s[right] != '?')
-        {
-            // cout << "Hello";
-            s[left] = s[right];
-            left++;
-            right--;
-        }
-        if(s[left] == '?' and s[right] == '?')
-        {
-            for(int i = 0; i < 26; i++)
-            { 
-                if(freq[i] == 0)
-                {
-                    flag = 1;
-                    s[left] = 'a' + i;
-                    s[right] = 'a' + i;
-                    left++;
-                    right--;
-                    freq[i]++;
-                    break;
-                }
-            }
-            if(flag == 0)
-            {
-                cout << "IMPOSSIBLE";
-                break;
-            }
-        }
-        if (left >= right)
-        {
-            cout << s;
-        }
-    }
+    Title(k, s);
 }
