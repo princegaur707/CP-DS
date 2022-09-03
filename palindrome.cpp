@@ -2,48 +2,48 @@
 using namespace std;
 int main()
 {
-    int lenght(int n)
-    {
-        int cnt=0;
-        while(n)
-        {
-            cnt++;
-            n/=10;
-        }
-        return cnt;
-    }
-    int number( int num, int flag)
-    {
-        if(flag=0)
-        {int cnt=0,n=0;
-        while(num)
-        {
-            n+=9*cnt;
-            num/=10;
-        }}
-        else
-        {
-            while(num+1)
-        {
-            n+=1*cnt;
-            num/=10;
-        }}
-        }
-    }
-    int t;
-    cin>>t;
-    while(t--){
-        int l;
-        cin>>l;
-        int n;
-        cin>>n;
-        int num=number(n);
-        if (n==length(num-n))
-         cout<<num-n;
-        else
-        int flag=1;
-        int num1=number(n);
-        cout<<
-        
-    }
+	int t;
+	cin >> t;
+	while(t--)
+	{
+		int n;
+		cin >> n;
+		int a[n];
+		int b[n];
+		for(int i = 1; i < n; i++)
+		{
+			b[i] = 1;
+		}
+		b[n] = 2;
+		for(int i = 1; i <= n; i++)
+		{
+			char x;
+			cin >> x;
+			a[i] = '9' - x;
+		}
+		if(a[1] != 0)
+		{
+			for(int i = 1; i <= n; i++)
+			{
+				cout << a[i];
+			}
+		}
+		else
+		{
+			for(int i = 1; i <= n; i++)
+			{
+				a[i] = b[i] + a[i];
+				if(a[i] >= 10)
+				{
+					a[i] -= 10;
+					a[i - 1]++;
+				}
+			}
+			for(int i = 1; i <= n; i++)
+			{
+				cout << a[i];
+			}
+		}
+		cout << endl;
+	}
 }

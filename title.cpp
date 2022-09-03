@@ -18,7 +18,7 @@ void Title(int k, string s)
         else if(s[i] != '?' and s[j] == '?')
         {
             s[j] = s[i];
-            freq[s[i] - 'a' + 1] = true;
+            freq[s[i] - 'a' + 1] = true; //Here we are doing +1 as to make it 1 based indexing
             i++;
             j--;
         }
@@ -53,7 +53,7 @@ void Title(int k, string s)
         }
         if (s[i] == '?' and s[j] == '?')
         {
-            s[i] = s[j] = 'a' + k - 1;
+            s[i] = s[j] = 'a' + k - 1; //Due to 1 based indexing (97(a) + 3 = 100 -1 = 99(c))
             freq[k] = true;
             i--; 
             j++;
