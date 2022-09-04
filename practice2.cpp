@@ -2,9 +2,16 @@
 using namespace std;
 int main()
 {
-    string str;
-    str = "abcdefghijklmnopqrstuvwxyz";
-    cout <<" Before Erase: " << str << endl;
-    str.erase(1,1);
-    cout<< "After Erase: "  << str << endl;
+    string a = "UV";
+    string b = "BM";
+    if(a > b)
+    {
+        swap(a, b);
+    }
+    else
+    {
+        cout << "hello";
+    }
+    cout << "a: " << a << endl;
+    cout << "b: " << b << endl;
 }
