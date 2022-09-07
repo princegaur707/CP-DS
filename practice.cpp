@@ -1,71 +1,59 @@
 #include<bits/stdc++.h>
 using namespace std;
-#define int long long
- 
-int Travel_cards() {
-    int n, a, b, k, f;
-    cin >> n >> a >> b >> k >> f;
- 
-    map<pair<string, string>, int>m;//C++ this cannot be unordered.
- 
-    string prev_dest = "";
- 
-    for (int i = 0; i < n; i++) {
- 
-        string start_dest, ending_dest;
-        cin >> start_dest >> ending_dest;
-        int price;
- 
-        if (prev_dest == start_dest) {//This is a Tranashipment
-            price = b;
-        } else {
-            price = a;
-        }
-        prev_dest = ending_dest;
- 
-        if (start_dest > ending_dest) {
-            swap(start_dest, ending_dest);
-        }
-        if (m.find({start_dest, ending_dest}) != m.end()) {
-            //Update the cost
-            m[make_pair(start_dest, ending_dest)] += price;
-        } else {
-            //This key or trip was not in the map hence add it
-            m[make_pair(start_dest, ending_dest)] = price;
-        }
+int IPC_Trainer()
+{
+    int n;
+    int d;
+    cin >> n >> d;
+    int D[n];
+    int L[n];
+    int S[n];
+    priority_queue<pair<int, int>>pq;
+    for(int i = 0; i < n; i++)
+    {
+        cin >> D[i] >> L[i] >> S[i];
+        pq.push({S[i], i});
     }
-    vector<int>v;
-    int total_cost = 0;
- 
-    for (auto x : m) {
-        //cout << endl << "1" << endl;
-        v.push_back(x.second);
-        total_cost += x.second;
+    set<int>s;
+    for(int i = 1; i <= d; i++)
+    {
+        s.insert(i);
     }
-    //cout << "total_cost: " << total_cost << endl;
- 
-    sort(v.rbegin(), v.rend());
- 
-    // sort(v.begin, v.end(), greater<int>());
-    int size = v.size();
-    int t = 0;
-    while( t < size and t < k){
-        if (v[t] > f) 
+    int Lecture_taken[n] = {0};
+    while(!pq.empty())
+    {
+        auto x = pq.top();
+        pq.pop();
+        int trainer_taken = x.second;
+        int start_date = D[trainer_taken];
+        int stop_date = start_date + L[trainer_taken] - 1;
+        for(int i = start_date; i <= stop_date; i++)
         {
-            total_cost = total_cost - v[t] + f;
-            t++;
-        } 
-        else 
-        {
-            break;
+            auto t = s.lower_bound(i);
+            if(t == s.end())
+            {
+                break;
+            }
+            else
+            {
+                s.erase(t);
+                Lecture_taken[trainer_taken]++;
+            }
         }
     }
- 
-    return total_cost;
- 
+    int total_sadness = 0;
+    for(int i = 0; i < n; i++)
+    {
+        total_sadness += (L[i] - Lecture_taken[i]) * S[i];
+    }
+    return total_sadness;
 }
- 
- 
-int32_t main() {
-    cout << Travel_cards() << endl;
+int main()
+{
+    int t;
+    cin >> t;
+    while(t--)
+    {
+        cout << IPC_Trainer() << endl;
+    }
 }
