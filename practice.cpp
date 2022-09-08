@@ -1,6 +1,6 @@
 #include<bits/stdc++.h>
 using namespace std;
-int IPC_Trainer()
+int IPC_Trainee()
 {
     int n;
     int d;
@@ -19,34 +19,35 @@ int IPC_Trainer()
     {
         s.insert(i);
     }
-    int Lecture_taken[n] = {0};
+    int Lect_Taken[n] = {0};
     while(!pq.empty())
     {
         auto x = pq.top();
         pq.pop();
         int trainer_taken = x.second;
-        int start_date = D[trainer_taken];
-        int stop_date = start_date + L[trainer_taken] - 1;
-        for(int i = start_date; i <= stop_date; i++)
+        int Start_Date = D[trainer_taken];
+        int End_Date = Start_Date + L[trainer_taken] - 1;
+        //cout << "1 " << Start_Date << "  " << End_Date << endl;
+        for(int i = Start_Date; i <= End_Date; i++)
         {
-            auto t = s.lower_bound(i);
-            if(t == s.end())
+            auto f = s.lower_bound(i);
+            if(f == s.end())
             {
                 break;
             }
             else
             {
-                s.erase(t);
-                Lecture_taken[trainer_taken]++;
+                Lect_Taken[trainer_taken]++;
+                s.erase(f); 
             }
         }
     }
-    int total_sadness = 0;
+    int tot_Sadness = 0;
     for(int i = 0; i < n; i++)
     {
-        total_sadness += (L[i] - Lecture_taken[i]) * S[i];
+        tot_Sadness += (L[i] - Lect_Taken[i]) * S[i];
     }
-    return total_sadness;
+    return tot_Sadness;
 }
 int main()
 {
@@ -54,6 +55,6 @@ int main()
     cin >> t;
     while(t--)
     {
-        cout << IPC_Trainer() << endl;
+        cout << IPC_Trainee() << endl;
     }
 }
