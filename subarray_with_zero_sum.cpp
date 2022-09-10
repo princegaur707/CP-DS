@@ -1,9 +1,7 @@
 #include<bits/stdc++.h>
 using namespace std;
-// const int N = 0;
-
 // check if there exists a subarray with sum 0;
-
+//we used set instead of set as for map we needed 2 things needed to store map<pair<int,int>>m;
 bool solve(int *a, int n) {
 	unordered_set<int>s;
 	//unordered_map<int, int>m;
@@ -19,15 +17,20 @@ bool solve(int *a, int n) {
 	}
 	return false;
 }
-
-//O(NlogN);
+//TC for set : O(NlogN) TC for Unordered set(this one): O(N)
 int main() {
-	int n;
-	cin >> n;
-	int a[n];
-	for (int i = 0; i < n; i++) {
-		cin >> a[i];
-	}
+	int t;
+	cin >> t;
+	while(t--)
+	{
+		int n;
+		cin >> n;
+		int a[n];
+		for (int i = 0; i < n; i++) 
+		{
+			cin >> a[i];
+		}
 
-	cout << solve(a, n) << endl;
+		cout << solve(a, n) << endl;
+	}
 }
