@@ -1,27 +1,25 @@
 #include<bits/stdc++.h>
 using namespace std;
-int LongestSubWithZeroSum(int *arr, int n)
+int Solve(int *a, int n, int k)
 {
     int pre = 0;
     int len = 0;
-    unordered_map<int,int>m;
+    unordered_map<int, int>m;
     for(int i = 0; i < n; i++)
     {
-        pre += arr[i];
-        if(pre == 0)
+        pre += a[i];
+        if(pre == k)
         {
             len = max(len, i + 1);
         }
-        else if(m.find(pre) != m.end())
+        else if(m.find(pre - k) != m.end())
         {
-            len = max(len, i - m[pre]);
+            len = max(len, i - m[pre - k]);
         }
         else
         {
             m[pre] = i;
         }
-        // for (auto x: m)
-        //     cout << " pre: " << x.first << " index: " << x.second << endl;
     }
     return len;
 }
@@ -32,12 +30,13 @@ int main()
     while(t--)
     {
         int n;
-        cin >> n;
+        int k;
+        cin >> n >> k;
         int arr[n];
         for(int i = 0; i < n; i++)
         {
-            cin >> arr[i];
+            cin >>arr[i];
         }
-        cout << LongestSubWithZeroSum(arr, n) << endl;
-    }   
+        cout << Solve(arr, n, k) << endl;
+    }
 }

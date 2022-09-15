@@ -2,41 +2,37 @@
 using namespace std;
 // const int N = 0;
 
-// check if there exists a subarray with sum 0;
-
-bool solve(int *a, int n) {
-    unordered_set<int>s;
-    //unordered_map<int, int>m;
-
-    int pre = 0;//Running Sum store
+int solve(int *a, int n, int k) {
+    unordered_map<int, int>m;
+    int pre = 0;
+    int len = 0;
 
     for (int i = 0; i < n; i++) {
         pre += a[i];
-        if (pre == 0 or s.find(pre) != s.end()) {
-            return true;
+        if (pre == k) {
+            len = max(len, i + 1);
         }
-        else
-        {
-            s.insert(pre);
+        if (m.find(pre - k) != m.end()) {
+            len = max(len, i - m[pre - k]);
+        } else {
+            m[pre] = i;
         }
     }
-    return false;
+    return len;
 }
 
-//O(NlogN);
 int main() {
     int t;
     cin >> t;
     while(t--)
     {
         int n;
-        cin >> n;
+        int k;
+        cin >> n >> k;
         int a[n];
-        for (int i = 0; i < n; i++) 
-        {
+        for (int i = 0; i < n; i++) {
             cin >> a[i];
         }
-
-        cout << solve(a, n) << endl;
+        cout << solve(a, n, k) << endl;
     }
 }

@@ -20,7 +20,6 @@ int solve(int *a, int n) {
 	}
 	return len;
 }
-
 int main() {
 	int t;
 	cin >> t;
