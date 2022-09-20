@@ -1,38 +1,19 @@
 #include<bits/stdc++.h>
 using namespace std;
-// const int N = 0;
-
-int solve(int *a, int n, int k) {
-    unordered_map<int, int>m;
-    int pre = 0;
-    int len = 0;
-
-    for (int i = 0; i < n; i++) {
-        pre += a[i];
-        if (pre == k) {
-            len = max(len, i + 1);
-        }
-        if (m.find(pre - k) != m.end()) {
-            len = max(len, i - m[pre - k]);
-        } else {
-            m[pre] = i;
-        }
-    }
-    return len;
-}
-
-int main() {
-    int t;
-    cin >> t;
-    while(t--)
+int main()
+{
+    char s[] = "My name is prince";
+    //string s = "XYZ" strtok works only for character array
+    char *token = strtok(s, " ");
+    cout << token << endl;
+    while(token != NULL)
     {
-        int n;
-        int k;
-        cin >> n >> k;
-        int a[n];
-        for (int i = 0; i < n; i++) {
-            cin >> a[i];
-        }
-        cout << solve(a, n, k) << endl;
+        token = strtok(NULL, " ");
+        cout << token << endl;
     }
-}
+    int arr[] = {1,2,3,4,5};
+    cout << arr << endl; //this represent the address of the array
+    cout << arr + 1 << endl; //address of the 2nd element of the array
+    cout << *(arr + 1) << endl; // element on 2nd address with the help of pointer
+    cout << arr[1];  //[] is overloaded [] means *(arr)
+ }
