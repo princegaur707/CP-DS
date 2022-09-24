@@ -13,7 +13,7 @@ int32_t main()
 		int a[n];
 		int freq[100005] = {0};
 		int sum = 0;
-		freq[0] = 1;
+		freq[0] = 1; //Explained below
 		for(int i = 0; i < n; i++)
 		{
 			cin >> a[i];
@@ -31,3 +31,8 @@ int32_t main()
 		cout << ans << endl;
 	}
 }
+/*
+for			   [5,7,7,7,7] 		n = 5
+prefix array : [5,12,19,26,33]
+pre[] % n 	 : [0,2,4,1,3] so according to nC2 formula there is no good subarray
+but we can see '5' is good subarray so tackle this situation we add freq[0]=1

@@ -1,13 +1,33 @@
+//https://hack.codingblocks.com/app/contests/3317/1065/problem
 #include<bits/stdc++.h>
 using namespace std;
-int main()
+#define int long long
+int32_t main()
 {
-    for(int i = 0; i < 9; i++)
+    int t;
+    cin >> t;
+    while (t--)
     {
-        if(i == 5)
+        int n;
+        cin >> n;
+        int a[n];
+        int freq[100005] = {0};
+        int sum = 0;
+        freq[0] = 1;
+        for(int i = 0; i < n; i++)
         {
-            continue;
+            cin >> a[i];
+            sum += a[i];
+            sum = sum % n;
+            sum = (sum + n) % n;
+            freq[sum]++;
         }
-        cout << i << " ";
+        int ans = 0;
+        for(int i = 0; i < n; i++)
+        {   
+            int value = freq[i];
+            ans += (value * (value - 1)) / 2;
+        }
+        cout << ans << endl;
     }
 }
