@@ -1,33 +1,62 @@
-//https://hack.codingblocks.com/app/contests/3317/1065/problem
 #include<bits/stdc++.h>
 using namespace std;
-#define int long long
-int32_t main()
+int v[100005];
+int main()
 {
-    int t;
-    cin >> t;
-    while (t--)
+    int n;  //no. of days
+    int m;  //no. of exams
+    cin >> n >> m;
+    int arr[n + 1];
+    for(int i = 1; i <= n; i++)
     {
-        int n;
-        cin >> n;
-        int a[n];
-        int freq[100005] = {0};
-        int sum = 0;
-        freq[0] = 1;
-        for(int i = 0; i < n; i++)
+        cin >> arr[i];
+    }
+    int brr[n + 1];
+    int s = 0;
+    for(int i = 1; i <= m; i++)
+    {
+        cin >> brr[i];
+        s += brr[i];
+    }
+    if(n < s + m)
+    {
+        cout << "-1";
+        return 0;
+    }
+    int left = s + m;
+    int right = n;
+    int ans = -1;
+    while(left <= right)
+    {
+        int mid = (left + right) / 2;
+        int k = 0;
+        for(int i = 1; i <= n; i++)
         {
-            cin >> a[i];
-            sum += a[i];
-            sum = sum % n;
-            sum = (sum + n) % n;
-            freq[sum]++;
+            v[i] = 0;
         }
-        int ans = 0;
-        for(int i = 0; i < n; i++)
-        {   
-            int value = freq[i];
-            ans += (value * (value - 1)) / 2;
+        for(int i = mid; i > 0; i--)
+        {
+            if(arr[i] && !v[arr[i]] && i > brr[arr[i]])
+            {
+                k++;
+                v[arr[i]] = 1;
+            }
         }
-        cout << ans << endl;
+        if(k == m)
+        {
+            right = mid - 1;
+        }
+        else
+        {
+            left = mid + 1;
+        }
+    }
+    if(right == n)
+    {
+        cout << "-1";
+    }
+    else
+    {
+        cout << right + 1;
     }
 }

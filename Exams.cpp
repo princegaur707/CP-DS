@@ -1,42 +1,62 @@
-#include<iostream>
-#include<stdio.h>
+#include<bits/stdc++.h>
 using namespace std;
-int a[100010],b[100010],v[100010];
 int main()
 {
-	int n,m,i;
-	cin>>n>>m;
-	for (i=1;i<=n;i++) scanf("%d",&a[i]);
-	long long Min=0;
-	for (i=1;i<=m;i++) 
-	{
-		scanf("%d",&b[i]);
-		Min+=b[i];
-	}
-	cout << Min;
-	if (Min>n)
-	{
-		cout<<-1;
-		return 0;
-	}
-	int l=Min+m,r=n;
-	while (l<=r)
-	{
-		int mid=(l+r)/2;
-		for (i=1;i<=n;i++) v[i]=0;
-		int s=0;
-		for (i=mid;i>0;i--)
-		{
-			if (a[i]&&!v[a[i]]&&i>b[a[i]]) 
-			{
-				v[a[i]]=1;
-				s++;
-			}
-		}
-		if (s==m) r=mid-1;
-		else l=mid+1;
-	}
-	if (r==n) cout<<-1;
-	else cout<<r+1;
-	return 0;
+    int n;
+    int m;
+    cin >> n >> m;
+    int arr[n + 1];
+    int crr[n + 1];
+    for(int i = 1; i <= n; i++)
+    {
+        cin >> arr[i];
+    }
+    int brr[m + 1];
+    int s = 0;
+    for(int i = 1; i <= m; i++)
+    {
+        cin >> brr[i];
+        s += brr[i];
+    }
+    if(n < s + m)
+    {
+        cout << "-1";
+        return 0;
+    }
+    int start = s + m;
+    int end = n;
+    while(start <= end)
+    {
+        int mid = (start + end) / 2;
+        int temp = 0;
+        for(int i = 0; i <= n; i++)
+        {
+            crr[i] = 0;
+        }
+        for(int i = mid; i > 0; i--)
+        {
+            if(arr[i] && !crr[arr[i]] && i > brr[arr[i]])
+            {
+                temp++;
+                crr[arr[i]] = 1;
+            }
+        }
+        if(m == temp)
+        {
+            end = mid - 1;
+        }
+        else
+        {
+            start = mid + 1;
+        }
+    }
+    if(end == n)
+    {
+        cout << "-1";
+    }
+    else
+    {
+        cout << end + 1;
+    }
+    return 0;
 }

@@ -1,42 +1,62 @@
 #include<bits/stdc++.h>
 using namespace std;
-int Solve(int *a, int n, int k)
+int main()
 {
-    int pre = 0;
-    int len = 0;
-    unordered_map<int, int>m;
-    for(int i = 0; i < n; i++)
+    int n;
+    int m;
+    cin >> n >> m;
+    int arr[n + 1];
+    int crr[n + 1];
+    for(int i = 1; i <= n; i++)
     {
-        pre += a[i];
-        if(pre == k)
+        cin >> arr[i];
+    }
+    int brr[m + 1];
+    int s = 0;
+    for(int i = 1; i <= m; i++)
+    {
+        cin >> brr[i];
+        s += brr[i];
+    }
+    if(n < s + m)
+    {
+        cout << "-1";
+        return 0;
+    }
+    int start = s + m;
+    int end = n;
+    while(start <= end)
+    {
+        int mid = (start + end) / 2;
+        int temp = 0;
+        for(int i = 0; i <= n; i++)
         {
-            len = max(len, i + 1);
+            crr[i] = 0;
         }
-        else if(m.find(pre - k) != m.end())
+        for(int i = mid; i > 0; i--)
         {
-            len = max(len, i - m[pre - k]);
+            if(arr[i] && !crr[arr[i]] && i > brr[arr[i]])
+            {
+                temp++;
+                crr[arr[i]] = 1;
+            }
+        }
+        if(m == temp)
+        {
+            end = mid - 1;
         }
         else
         {
-            m[pre] = i;
+            start = mid + 1;
         }
     }
-    return len;
-}
-int main()
-{
-    int t;
-    cin >> t;
-    while(t--)
+    if(end == n)
     {
-        int n;
-        int k;
-        cin >> n >> k;
-        int arr[n];
-        for(int i = 0; i < n; i++)
-        {
-            cin >>arr[i];
-        }
-        cout << Solve(arr, n, k) << endl;
+        cout << "-1";
     }
+    else
+    {
+        cout << end + 1;
+    }
+    return 0;
 }
