@@ -11,7 +11,7 @@ int check1(long long x)
 int check2(long long x)
 {
 	long long cnt=0;
-	for(int i=1;i<=n;i++)if(a[i]<x)cnt+=(x-a[i]);
+	for(int i=1;i<=n;i++)if(a[i]<x)cnt+=(x-a[i]); 
 	return cnt<=k;
 }
 int main()
@@ -22,9 +22,9 @@ int main()
 		scanf("%lld",&a[i]);
 		mi=min(mi,a[i]);
 		mx=max(mx,a[i]);
-		sum+=a[i];
+		sum+=a[i]; 
 	}
-	l=(sum+n-1)/n;
+	l=(sum+n-1)/n; //why +n is done here
 	r=mx;
 	while(l<=r)
 	{

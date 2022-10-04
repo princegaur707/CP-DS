@@ -20,4 +20,4 @@ int main()
 		if (freq[i]>0)
 			cout<<i<<"-->"<<freq[i]<<endl;
 	}
-	}
+}
