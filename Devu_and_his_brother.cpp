@@ -23,4 +23,3 @@ int main()
 		j--;
 	}
 	cout<<sum;
-}
