@@ -3,26 +3,22 @@ using namespace std;
 int main()
 {
 	int n;
+	int h;
 	int k;
-	int arr[n];
-	for(int i = 0; i < n; i++)
+	int mn = INT_MAX;
+	int ans;
+	cin >> n >> k;
+	int arr[n + 1];
+	arr[0] = 0;
+	for(int i = 1; i <= n; i++)
 	{
-		cin >> arr[i];
-	}
-	int sum = 0;
-	for(int i = 0; i < k; i++)
-	{
-		sum += arr[i];
-	}
-	int min = sum;
-	for(int i = k; i < n; i++)
-	{
-		sum -= i - k;
-		sum += arr[k];
-		if(min > sum)
+		cin >> h;
+		arr[i] = arr[i-1] + h;
+		if(i >= k && arr[i] - arr[i-k] < mn)
 		{
-			min = sum;
+			mn = arr[i] - arr[i - k];
+			ans = i - k + 1;
 		}
 	}
-	cout << min;
+	cout << ans;
 }
