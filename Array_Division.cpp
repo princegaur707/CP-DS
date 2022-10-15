@@ -1,13 +1,14 @@
 #include<bits/stdc++.h>
 using namespace std;
-int main()
+#define int long long
+int32_t main()
 {
 	int n;
 	cin >> n;
 	int arr[n];
 	int sum = 0;
-	unordered_map<int,int>m1;
-	unordered_map<int,int>m2;
+	map<int,int>m1;
+	map<int,int>m2;
 	for(int i = 0; i < n; i++)
 	{
 		cin >> arr[i];

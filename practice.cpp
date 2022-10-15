@@ -1,32 +1,30 @@
 #include<bits/stdc++.h>
-#define ll long long
 using namespace std;
-ll a[100007],ans,temp;
-int n;
-map<ll,ll> m1,m2;
+void printMapping(int A[], int B[], int N, int M)
+{
+    unordered_map<int, list<int>> m;
+    for (int i=0; i<N; i++)
+        m[A[i]].push_back(i);
+    for (int i=0; i<M; i++)
+    {
+        if (m.find(B[i]) != m.end() && m[B[i]].size() > 0)
+        {
+            cout << m[B[i]].front() << " ";
+            m[B[i]].pop_front();
+        }
+
+        else // No mapping found
+        {
+            cout << "NA ";
+        }
+    }
+}
 int main()
 {
-	ios::sync_with_stdio(false);
-	cin>>n;
-	for (int i=1;i<=n;i++)
-	{
-		cin>>a[i];
-		m1[a[i]]++;
-		ans+=a[i];
-	}
-	cout << ans << endl;
-	if (ans%2==1) {cout<<"NO";return 0;}
-	ans/=2;
-	temp=0;
-	for (int i=1;i<=n;i++)
-	{
-		cout << i << " ";
-		temp+=a[i];
-		m1[a[i]]--;
-		m2[a[i]]++;
-		if (temp==ans) {cout << i <<"1YES";return 0;}
-		if (m1[ans-temp]) {cout << i <<"2YES";return 0;}
-		if (m2[temp-ans]) {cout << i <<"3YES";return 0;}
-	}
-	cout<<"NO";
+    int A[] = {2, 1, 2, 3, 3, 4, 2, 4, 1};
+    int N = sizeof(A) / sizeof(A[0]);
+    int B[] = {1, 2, 5, 1, 2, 4, 2, 3, 2, 1};
+    int M = sizeof(B) / sizeof(B[0]);
+    printMapping(A, B, N, M);
+        return 0;
 }
