@@ -1,3 +1,4 @@
+//https://leetcode.com/problems/longest-consecutive-sequence/
 #include<bits/stdc++.h>
 using namespace std;
 int Solve(int *a, int n)
