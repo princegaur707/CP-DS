@@ -1,4 +1,3 @@
-//https://www.lintcode.com/problem/906/description
 class Solution {
 public:
     /**
@@ -10,12 +9,11 @@ public:
      */
     vector<int> sortTransformedArray(vector<int> &nums, int a, int b, int c) {
         // Write your code here
-        vector<int> res(nums.size(), 0);
+        vector<int>res(nums.size(), 0);
         int start = 0;
         int end = nums.size() - 1;
         int cnt = 0;
-        if(a >= 0)
-        {
+        if(a >= 0){
             cnt = end;
         }
         while(start <= end) {
@@ -23,25 +21,29 @@ public:
             int endNum = getNum(nums[end], a, b, c);
             if(a >= 0) {
                 if(startNum >= endNum) {
-                    res[cnt--] = startNum;
+                    cout << "1" << endl;
+                    res[cnt--] = startNum; //cnt will be updated after operation due to post increment
                     start++;
                 }
                 else{
+                    cout << "2" << endl;
                     res[cnt--] = endNum;
                     end--;
                 }
             }
             else{
                 if(startNum <= endNum) {
+                    cout << "3" << endl;
                     res[cnt++] = startNum;
                     start++;
                 }
                 else{
+                    cout << "4" << endl;
                     res[cnt++] = endNum;
                     end--;
                 }
             }
-            cout << 
+            cout << res[0] << " " << res[1] << " " << res[2] <<" " << res[3] << endl;
         }
         return res;
     }
