@@ -1,1 +1,22 @@
-6
+range: 0 0
+1
+range: 1 2
+1
+range: 3 5
+1
+YES
+range: 12 12
+1
+range: 7 10
+1
+YES
+range: -100 -100
+1
+range: 0 0
+1
+range: -50 50
+1
+YES
+range: 100 100
+2
+NO
