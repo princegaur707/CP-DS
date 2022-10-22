@@ -1,29 +1,26 @@
-//https://codeforces.com/contest/287/problem/B
-#include <bits/stdc++.h>
+#include<bits/stdc++.h>
 using namespace std;
 #define int long long
-int32_t main()
+int k;
+int V(int mid)
+    {
+      return (2 * k - mid - 1) * mid / 2 + 1; //unable to understand this
+    }
+int32_t main() 
 {
     int n;
-    int k;
+    int x;
     cin >> n >> k;
-    if (n == 1)
+    int start = 0;
+    int end = k;
+    while(start < end)
     {
-    	cout << 0;
-    	return 0;
+        int mid = (start + end) / 2;
+        //cout << start << " " << mid << " " << end << endl;
+        if(n > V(mid))
+            start = mid + 1;
+        else
+            end = mid;
     }
-    int sum = 1;
-    for (int i = k - 1; i > 0; i--)
-    {
- 
- 
-        sum += i;
-        if (sum >= n)
-        {
-        	cout << k - i;
-        	return 0;
-        }
-    }
-     cout << -1;
-    return 0;
+    cout << (start < k? start : -1);
 }
