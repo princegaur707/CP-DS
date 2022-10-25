@@ -2,10 +2,12 @@
 using namespace std;
 // const int N = 0;
 #define ll long long
-#define size 10005
+#define size 100005
 
 int main() {
-	ll n, m, k;
+	ll n; //no. of array elements
+	ll m; //no. of operations
+	ll k; //no. of queries
 	cin >> n >> m >> k;
 	ll a[n + 1] = {0};
 	for (int i = 1; i <= n; i++) {
@@ -53,4 +55,3 @@ int main() {
 		cout << a[i] << " ";
 	}
 }
-

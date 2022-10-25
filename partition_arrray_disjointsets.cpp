@@ -39,14 +39,14 @@ public:
         brr[n] = INT_MAX;
         for(int i = 1; i < n; i++)
         {
-            arr[i] = max(arr[i - 1], nums[i - 1]);
+            arr[i] = max(arr[i - 1], nums[i - 1]); //calculating left maximum
         }
         for(int i = n - 1; i >= 0; i--)
         {
-            brr[i] = min(brr[i + 1], nums[i]);
+            brr[i] = min(brr[i + 1], nums[i]); //calculating right minimum
         }
         int cnt = 1;
-        while(arr[cnt] > brr[cnt])
+        while(arr[cnt] > brr[cnt]) //Till when the the left max is greater than right min continue
         {
             cnt++;
         }
