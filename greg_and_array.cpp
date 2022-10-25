@@ -34,7 +34,7 @@ int main() {
 
 	ll total_operations_sum[size] = {0};
 
-	for (int i = 1; i <= n; i++) {
+	for (int i = 1; i <= m; i++) {
 		total_operations_sum[l[i]] = total_operations_sum[l[i]] + operations_count[i] * d[i];
 		total_operations_sum[r[i] + 1] = total_operations_sum[r[i] + 1] - operations_count[i] * d[i];
 
