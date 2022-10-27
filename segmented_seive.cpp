@@ -35,11 +35,13 @@ void Segmented_Sieve(int a, int b)
 		{
 			start = start + primes[i];
 		}
-		for(int j = start; j <= b; j+=primes[i])
+		for(int j = start; j <= b; j += primes[i])
 		{
 			p1[j - a] = 1;
 		}
-		if(start == primes[i])
+		if(start == primes[i]) //for neglecting the effect of overlapping of ranges like if we have
+			//prime numbers from range 1 to 20 and we want to find the prime numbers from 5 to 100
+			//we would have marked 5 as composite as 5 is divisible by 5.
 		{
 			p1[start - a] = 0;
 		}

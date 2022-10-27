@@ -34,7 +34,7 @@ void Segmented_Sieve(int a, int b)
 		{
 			start = start + primes[i];
 		}
-		for(int j = start; j <= b; j+=primes[i])
+		for(int j = start; j <= b; j+= primes[i])
 		{
 			p1[j - a] = 1;
 		}
