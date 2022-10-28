@@ -1,51 +1,64 @@
-#include <iostream>
-#include <string.h>
-#include <algorithm>
-#include <stdio.h>
- 
+#include<bits/stdc++.h>
 using namespace std;
-typedef long long LL;
-const int N = 1005;
-const LL INF = 1e18;
-const LL R = 3*1e9;
- 
-LL S[N];
-int cnt;
- 
-void Binary_Search(LL n)
-{
-    for(int k=0;k<63;k++)
-    {
-        LL l = 1;
-        LL r = R;
-        if(k >= 30) r = INF >> k;
-        while(l <= r)
-        {
-            LL m = (l + r) >> 1;
-            LL ans = (((LL)1 << k) - 1) * m * 2 + m * (m - 1);
-            if(ans > 2*n) r = m - 1;
-            else if(ans < 2*n) l = m + 1;
-            else
-            {
-                if(m&1) S[cnt++] = m * ((LL)1 << k);
-                break;
-            }
-        }
-    }
-}
- 
 int main()
 {
-    LL n;
-    cin>>n;
-    cnt = 0;
-    Binary_Search(n);
-    sort(S,S+cnt);
-    if(cnt == 0) puts("-1");
-    else
+    int n; //no. of trips
+    int a; 
+    int b;
+    int k;
+    int f;
+    map<pair<string, string>,int>m;
+    cin >> n >> a >> b >> k >> f;
+    string prev = "";
+    int fare = 0;
+    for(int i = 0; i < n; i++)
     {
-        for(int i=0;i<cnt;i++)
-           cout<<S[i]<<endl;
+        string start;
+        string stop;
+        cin >> start >> stop;
+        if(start == prev)
+        {
+            fare = b;
+        }
+        else
+        {
+            fare = a;
+        }
+        prev = stop;
+        if(start > stop)
+        {
+            swap(start, stop);
+        }
+        if(m.find({start, stop}) != m.end())
+        {
+            m[{start, stop}] += fare;
+        }
+        else
+        {
+            m[{start, stop}] = fare;
+        }
     }
-    return 0;
+    vector<int>arr;
+    int total = 0;
+    for(auto x : m)
+    {
+        arr.push_back(x.second);
+        total += x.second;
+    }
+    sort(arr.rbegin(), arr.rend());
+    int len = arr.size();
+    int i = 0;
+    while( i < len and i < k)
+    {
+        if(arr[i] > f)
+        {
+            total = total - arr[i] + f;
+            i++;
+        }
+        else
+        {
+            break;
+        }
+    }
+    cout << total;
 }

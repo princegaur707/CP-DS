@@ -27,10 +27,10 @@ int TravelCard()
 		{
 			cost = a;
 		}
-		prev = end;
+		prev = end; //must update prev here otherwise position may change
 		if(start > end)
 		{
-			swap(start, end);
+			swap(start, end);//swapping to store pairs in map
 		}
 		if(m.find({start, end}) != m.end())
 		{
@@ -48,7 +48,7 @@ int TravelCard()
 		total += x.second;
 	}
 	int len = v.size();
-	sort(v.rbegin(), v.rend());
+	sort(v.rbegin(), v.rend());//reverse sorting so as to take the pass for maximum fare route
 	int t = 0;
 	while(t < len and t < k)
 	{
@@ -59,7 +59,7 @@ int TravelCard()
 		}
 		else
 		{
-			break;
+			break; //no need to move ahead as array is reverse sorted remaining will be already less than these
 		}
 	}
 	return total;
