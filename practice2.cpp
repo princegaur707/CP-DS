@@ -1,31 +1,64 @@
+//https://www.codechef.com/problems/IPCTRAIN
 #include<bits/stdc++.h>
 using namespace std;
-int Compare(string X, string Y)
+#define int long long
+int IPC_Trainers()
 {
-	string XY = X.append(Y);
-	string YX = Y.append(X);
-	return XY > YX;
+	int n;
+	int d;
+	cin >> n >> d;
+	int D[n];
+	int L[n];
+	int S[n];
+	for(int i = 0; i < n; i++)
+	{
+		cin >> D[i] >> L[i] >> S[i];
+	}
+	priority_queue<pair<int, int>>pq;
+	for(int i = 0; i < n; i++)
+	{
+		pq.push({S[i], i});
+	}
+	set<int>s;
+	for(int i = 1; i <= d; i++)
+	{
+		s.insert(i);
+	}
+	while(!pq.empty())
+	{
+		auto x = pq.top(); // Pair with highest sadness in priority queue.
+		pq.pop();
+
+		int trainer_taken = x.second;
+		int start_date = D[trainer_taken];
+		int end_date = start_date + L[trainer_taken] - 1; // -1 required as start date is also included in no. of lectures.
+		for(int i = start_date; i <= end_date; i++)
+		{
+			auto f = s.lower_bound(i);
+			if(f == s. end())
+			{
+				break;
+			}
+			else
+			{
+				L[trainer_taken]--;
+				s.erase(f);
+			}
+		}
+	}
+	int total_sadness = 0;
+	for(int i = 0; i < n; i++)
+	{
+		total_sadness += L[i] * S[i];
+	}
+	return total_sadness;
 }
 int32_t main()
 {
 	int t;
 	cin >> t;
-	while(t--)
+	while (t--)
 	{
-		int n;
-		cin >> n;
-		vector<string>arr;
-		for(int i = 0; i < n; i++)
-		{
-			int t;
-			cin >> t;
-			string t1 = to_string(t);
-			arr.push_back(t1);
-		}
-		sort(arr.begin(), arr.end(), Compare);
-
-		for (int i = 0; i < arr.size(); i++)
-			cout << arr[i];
+		cout << IPC_Trainers() << endl;
 	}
-	return 0;
 }

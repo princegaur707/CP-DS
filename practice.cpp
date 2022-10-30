@@ -1,64 +1,62 @@
 #include<bits/stdc++.h>
 using namespace std;
-int main()
+#define int long long
+int IPC_Trainer()
 {
-    int n; //no. of trips
-    int a; 
-    int b;
-    int k;
-    int f;
-    map<pair<string, string>,int>m;
-    cin >> n >> a >> b >> k >> f;
-    string prev = "";
-    int fare = 0;
+    int n;
+    int d;
+    cin >> n >> d;
+    int D[n];
+    int L[n];
+    int S[n];
     for(int i = 0; i < n; i++)
     {
-        string start;
-        string stop;
-        cin >> start >> stop;
-        if(start == prev)
-        {
-            fare = b;
-        }
-        else
-        {
-            fare = a;
-        }
-        prev = stop;
-        if(start > stop)
-        {
-            swap(start, stop);
-        }
-        if(m.find({start, stop}) != m.end())
-        {
-            m[{start, stop}] += fare;
-        }
-        else
-        {
-            m[{start, stop}] = fare;
-        }
+        cin >> D[i] >> L[i] >> S[i];
     }
-    vector<int>arr;
-    int total = 0;
-    for(auto x : m)
+    priority_queue<pair<int, int>>pq;
+    for(int i = 0; i < n; i++)
     {
-        arr.push_back(x.second);
-        total += x.second;
+        pq.push({S[i], i});
     }
-    sort(arr.rbegin(), arr.rend());
-    int len = arr.size();
-    int i = 0;
-    while( i < len and i < k)
+    set<int>s;
+    for(int i = 1; i <= d; i++)
     {
-        if(arr[i] > f)
+        s.insert(i);
+    }
+    while(!pq.empty())
+    {
+        auto x = pq.top();
+        pq.pop();
+        int trainer_taken = x.second;
+        int start_date = D[trainer_taken];
+        int end_date = start_date + L[trainer_taken]  - 1;
+        for(int i = start_date; i <= end_date; i++)
         {
-            total = total - arr[i] + f;
-            i++;
-        }
-        else
-        {
-            break;
+            auto f = s.lower_bound(i);
+            if(f == s.end())
+            {
+                break;
+            }
+            else
+            {
+                L[trainer_taken]--;
+                s.erase(f);
+            }
         }
     }
-    cout << total;
+    int total_sadness = 0;
+    for(int i = 0; i < n; i++)
+    {
+        total_sadness += L[i] * S[i];
+    }
+    return total_sadness;
+}
+int32_t main()
+{
+    int t;
+    cin >> t;
+    while(t--)
+    {
+        cout << IPC_Trainer() << endl;
+    }
 }
