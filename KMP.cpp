@@ -37,7 +37,7 @@ void KMP(char *s, char *p)
     int j = 0;
     int ls = strlen(s);
     int lp = strlen(p);
-    while(i < ls) //till we don't compare the whole string
+    while(i < ls) //still we don't compare the whole string
     {
         while(i > 0 and s[i] != p[j])
         {
@@ -52,7 +52,8 @@ void KMP(char *s, char *p)
         {
             i++;
         }
-        if(j == lp) //If j will be lp it means it must have been updated 'j+1' 
+        if(j == lp) //strings matched
+                    //If j will be lp it means it must have been updated 'j+1' 
             {      //after matching the last character too so we are matching these.
             cout << "i: " << i <<" j: " << j << endl;
             cout << "Pattern found at " << i-lp+1 << " position." << endl; //we now need to go to previous
@@ -63,6 +64,6 @@ void KMP(char *s, char *p)
 int main()
 {
     char s[] = "abcdabcdabcxabcdabcx";
-    char p[] = "abcdabcx";
+    char p[] = "abcdefabczaabcze";
     KMP(s, p);
 }

@@ -1,62 +1,43 @@
 #include<bits/stdc++.h>
 using namespace std;
-#define int long long
-int IPC_Trainer()
+int table[105];
+void createtable(string p)
 {
-    int n;
-    int d;
-    cin >> n >> d;
-    int D[n];
-    int L[n];
-    int S[n];
-    for(int i = 0; i < n; i++)
-    {
-        cin >> D[i] >> L[i] >> S[i];
-    }
-    priority_queue<pair<int, int>>pq;
-    for(int i = 0; i < n; i++)
-    {
-        pq.push({S[i], i});
-    }
-    set<int>s;
-    for(int i = 1; i <= d; i++)
-    {
-        s.insert(i);
-    }
-    while(!pq.empty())
-    {
-        auto x = pq.top();
-        pq.pop();
-        int trainer_taken = x.second;
-        int start_date = D[trainer_taken];
-        int end_date = start_date + L[trainer_taken]  - 1;
-        for(int i = start_date; i <= end_date; i++)
-        {
-            auto f = s.lower_bound(i);
-            if(f == s.end())
-            {
-                break;
-            }
-            else
-            {
-                L[trainer_taken]--;
-                s.erase(f);
-            }
-        }
-    }
-    int total_sadness = 0;
-    for(int i = 0; i < n; i++)
-    {
-        total_sadness += L[i] * S[i];
-    }
-    return total_sadness;
+	int lp = lp.length();
+	int i = 0;
+	int j = 1;
+	while(j < lp)
+	{
+	   while(i > 0 and p[i] != p[j])
+	   {
+			i = table[i - 1];
+	   }
+	   if(p[i] == p[j])
+	   {
+	   		table[j] = i + 1;
+	   		i++;
+	   		j++;
+	   }
+	   else
+	   {
+	   		j++;
+	   }
+	}
 }
-int32_t main()
+void KMP(string s, string p)
 {
-    int t;
-    cin >> t;
-    while(t--)
-    {
-        cout << IPC_Trainer() << endl;
-    }
+	int ls = s.length();
+	int lp = p.length();
+	int i = 0;
+	int j = 0;
+	while(i < ls)
+	{
+		whi
+	}
+}
+int main()
+{
+	string s = "abcdefghiabcde";
+	string p = "cde";
+	KMP(s, p);
 }
