@@ -39,7 +39,7 @@ void KMP(char *s, char *p)
     int lp = strlen(p);
     while(i < ls) //still we don't compare the whole string
     {
-        while(i > 0 and s[i] != p[j])
+        while(j > 0 and s[i] != p[j])
         {
             j = table[j - 1];
         }
@@ -64,6 +64,6 @@ void KMP(char *s, char *p)
 int main()
 {
     char s[] = "abcdabcdabcxabcdabcx";
-    char p[] = "abcdefabczaabcze";
+    char p[] = "abcdabcx";
     KMP(s, p);
 }
