@@ -31,6 +31,8 @@ public:
 /*
 In Python we can use split function directly but in c++
 strtok: works only for character array so firstly need to convert the string to character array
+first argument of strtok represents the address from where to start so we can give None for the next times
+to start with till 
 We cannot use vector directly as it will pick up every character one by one
 t
 h
