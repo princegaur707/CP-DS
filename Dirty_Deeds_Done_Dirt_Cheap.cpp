@@ -13,13 +13,18 @@ int main()
 		cin >> y;
 		if(x < y)
 		{
-			arr.push_back({-y, i});
+			arr.push_back({-y, i});//to store the inverse
 		}
 		else
 		{
 			brr.push_back({y, i});
 		}
 	}
+	for(auto x : arr)
+	{
+		cout << x.first << " ";
+	}
+	cout << endl;
 	sort(arr.begin(), arr.end());
 	sort(brr.begin(), brr.end());
 	if(arr.size() < brr.size())

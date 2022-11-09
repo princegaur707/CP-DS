@@ -1,5 +1,10 @@
-//https://codeforces.com/contest/325/problem/B
-//Other's answer at bottom
+/*
+There we 2 possible situations where it can lead to overflows so we can deal with them by this way:-
+1)Calculating the power of 2 upto power 64 so we calculated till power 62 only.
+2)2^D - 1 * p going above LLONG_MAX so we calculated that also and compared it.
+No. of matches forumla : (2 ^ D - 1) * odd_no. + (odd no * (odd no. - 1)) / 2
+No. of teams : 2 ^ D * odd no.
+*/
 #include<bits/stdc++.h>
 using namespace std;
 #define int long long
@@ -8,85 +13,57 @@ int32_t main()
 	int n;
 	cin >> n;
 	vector<int>arr;
-	int cnt = 0;
-	for(int i = 1; i <= 2 * n; i++)
+	int pow2[62];
+	pow2[0] = 1;
+	for(int i = 1; i < 62; i++)//OVERFLOW POSSIBLE CONDN 1 SOLVED
 	{
-		int flag = 0;
-		int match_count = 0;
-		int mid = i;
-		int team_count = mid;
-		while(mid % 2 == 0)
+		pow2[i] = pow2[i - 1] * 2; 
+	}
+	for(int d = 0; d < 62; d++)
+	{
+		int start = 1;
+		int end = 1e10;
+		int p = pow2[d] - 1;
+		while(start <= end)
 		{
-			flag++;
-			mid = mid / 2;
-			match_count += mid;
-		}
-		match_count += (mid * (mid - 1)) / 2;
-		if(match_count == n)
-		{
-			arr.push_back(team_count);
+			int no_of_matches;
+			int mid = start + (end - start) / 2;
+			int g = (mid * (mid - 1)) / 2;
+			if(p != 0 and mid > LLONG_MAX / p)//OVERFLOW POSSIBLE CONDN 2 SOLVED
+			{
+				no_of_matches = LLONG_MAX;
+			}
+			else
+			{
+				no_of_matches = p * mid + g;
+			}
+
+			if(no_of_matches == n)
+			{
+				if(mid & 1)
+					arr.push_back(mid * (p + 1));
+				break;
+			}
+			if(no_of_matches < n)
+			{
+				start = mid + 1;
+			}
+			else
+			{
+				end = mid - 1;
+			}
 		}
 	}
-	if(arr.size())
+	if(arr.size() == 0)
 	{
+		cout << "-1";
+	}
+	else
+	{
+		sort(arr.begin(), arr.end());
 		for(auto x : arr)
 		{
 			cout << x << endl;
 		}
 	}
-	else
-	{
-		cout << "-1";
 	}
-}
-/*#include <iostream>
-#include <string.h>
-#include <algorithm>
-#include <stdio.h>
- 
-using namespace std;
-typedef long long LL;
-const int N = 1005;
-const LL INF = 1e18;
-const LL R = 3*1e9;
- 
-LL S[N];
-int cnt;
- 
-void Binary_Search(LL n)
-{
-    for(int k=0;k<63;k++)
-    {
-        LL l = 1;
-        LL r = R;
-        if(k >= 30) r = INF >> k;
-        while(l <= r)
-        {
-            LL m = (l + r) >> 1;
-            LL ans = (((LL)1 << k) - 1) * m * 2 + m * (m - 1);
-            if(ans > 2*n) r = m - 1;
-            else if(ans < 2*n) l = m + 1;
-            else
-            {
-                if(m&1) S[cnt++] = m * ((LL)1 << k);
-                break;
-            }
-        }
-    }
-}
- 
-int main()
-{
-    LL n;
-    cin>>n;
-    cnt = 0;
-    Binary_Search(n);
-    sort(S,S+cnt);
-    if(cnt == 0) puts("-1");
-    else
-    {
-        for(int i=0;i<cnt;i++)
-           cout<<S[i]<<endl;
-    }
-    return 0;
-}*/

@@ -1,66 +1,25 @@
-#include<bits/stdc++.h>
-using namespace std;
-int table[105];
-void createtable(string p)
-{
-	int lp = p.length();
-	int i = 0;
-	int j = 1;
-	while(j < lp)
-	{
-		while(i > 0 and p[i] != p[j])
-		{
-			i = table[i - 1];
-		}
-		if(p[i] == p[j])
-		{
-			table[j] = i + 1;
-			i++;
-			j++;
-		}
-		else
-		{
-			j++;
-		}
-	}
-	cout << "Table: ";
-    for(int i = 0; i < lp; i++)
+class Solution {
+public:
+    int partitionDisjoint(vector<int>& nums)
     {
-        cout << table[i] << " ";
+        int n = nums.size();
+        int arr[n + 1];
+        int brr[n + 1];
+        arr[0] = INT_MIN;
+        brr[n] = INT_MAX;
+        for(int i = 1; i < n; i++)
+        {
+            arr[i] = max(arr[i - 1], nums[i - 1]);
+        }
+        for(int i = n - 1; i >= 0; i--)
+        {
+            brr[i] = min(brr[i + 1], nums[i]);
+        }
+        int cnt = 1;
+        while(arr[cnt] > brr[cnt])
+        {
+            cnt++;
+        }
+        return cnt;
     }
-    cout << endl;
-}
-void KMP(string s, string p)
-{
-	createtable(p);
-	int ls = s.length();
-	int lp = p.length();
-	int i = 0;
-	int j = 0;
-	while(i < ls)
-	{
-		while(j > 0 and s[i] != p[j])
-		{
-			j = table[j - 1];
-		}
-		if(s[i] == p[j])
-		{
-			i++;
-			j++;
-		}
-		else
-		{
-			i++;
-		}
-		if(j == lp)
-		{
-			cout << "Element found at: " << i - lp + 1 << " pos\n";
-		}
-	}
-}
-int main()
-{
-	string s = "abcdabcdabcxabcdabcx";
-	string p = "abcdabcx";
-	KMP(s, p);
-}
+};
