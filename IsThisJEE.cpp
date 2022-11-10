@@ -29,6 +29,7 @@ void solve()
           r=m2;
       }
   }
+  cout << r << endl;
   cout<<setprecision(10)<<fun(r,b,c)<<endl;
 }
 int main()
@@ -43,3 +44,38 @@ int main()
 	
 	return 0;
 }
+// #include<bits/stdc++.h>
+// using namespace std;
+// double Calcualate(double x, double b, double c)
+// {
+//     return (x * x + b * x + c) / sin(x);
+// }
+// int main()
+// {
+//     double t;
+//     cin >> t;
+//     while(t--)
+//     {
+//         double b;
+//         double c;
+//         cin >> b >> c;
+//         double PI = acos(-1);
+//         double start = 0;
+//         double end = PI/ 2;
+//         double step = 1e-6;
+//         while(start < end)
+//         {
+//             double mid = start + (end - start) / 2;
+//             if(Calcualate(mid, b, c) < Calcualate(mid + step, b, c))
+//             {
+//                 end = mid;
+//             }
+//             else
+//             {
+//                 start = mid;
+//             }
+//         }
+//         cout << end << endl;
+//         cout << Calcualate(end, b, c) << endl;
+//     }
+// }

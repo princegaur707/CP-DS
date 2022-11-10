@@ -1,25 +1,35 @@
-class Solution {
-public:
-    int partitionDisjoint(vector<int>& nums)
+#include<bits/stdc++.h>
+using namespace std;
+double Calcualate(double x, double b, double c)
+{
+    return (x * x + b * x + c) / sin(x);
+}
+int main()
+{
+    double t;
+    cin >> t;
+    while(t--)
     {
-        int n = nums.size();
-        int arr[n + 1];
-        int brr[n + 1];
-        arr[0] = INT_MIN;
-        brr[n] = INT_MAX;
-        for(int i = 1; i < n; i++)
+        double b;
+        double c;
+        cin >> b >> c;
+        double PI = acos(-1);
+        double start = 0;
+        double end = PI/ 2;
+        double step = 1e-6;
+        while(start < end)
         {
-            arr[i] = max(arr[i - 1], nums[i - 1]);
+            double mid = start + (end - start) / 2;
+            if(Calcualate(mid, b, c) < Calcualate(mid + step, b, c))
+            {
+                end = mid;
+            }
+            else
+            {
+                start = mid;
+            }
         }
-        for(int i = n - 1; i >= 0; i--)
-        {
-            brr[i] = min(brr[i + 1], nums[i]);
-        }
-        int cnt = 1;
-        while(arr[cnt] > brr[cnt])
-        {
-            cnt++;
-        }
-        return cnt;
+        cout << end << endl;
+        cout << Calcualate(end, b, c) << endl;
     }
-};
+}
