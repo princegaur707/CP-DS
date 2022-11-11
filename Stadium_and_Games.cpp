@@ -4,6 +4,7 @@ There we 2 possible situations where it can lead to overflows so we can deal wit
 2)2^D - 1 * p going above LLONG_MAX so we calculated that also and compared it.
 No. of matches forumla : (2 ^ D - 1) * odd_no. + (odd no * (odd no. - 1)) / 2
 No. of teams : 2 ^ D * odd no.
+https://codeforces.com/problemset/problem/325/B
 */
 #include<bits/stdc++.h>
 using namespace std;

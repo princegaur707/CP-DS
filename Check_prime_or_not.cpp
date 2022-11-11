@@ -17,16 +17,22 @@ bool IsPrime(int n)
 }
 int main()
 {
-	int n;
-	cin >> n;
-	if(IsPrime(n))
-	{
-		cout << "YES, it is a prime no.";
-	}
-	else
-	{
-		cout << "NOT a prime no.";
-	}
+    int t;
+    cin >> t;
+    while(t--)
+    {
+    	int n;
+    	cin >> n;
+    	if(IsPrime(n))
+    	{
+    		cout << "YES, " << n << " is a prime no.";
+    	}
+    	else
+    	{
+    		cout << "NO, " << n << " is not a prime no.";
+    	}
+    	cout << endl;
+    }
 }
 //T.C: O(sqrt(n))
 //S.C: O(1)

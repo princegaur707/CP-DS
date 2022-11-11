@@ -1,35 +1,38 @@
 #include<bits/stdc++.h>
 using namespace std;
-double Calcualate(double x, double b, double c)
+bool IsPrime(int n)
 {
-    return (x * x + b * x + c) / sin(x);
+	if(n == 1)
+		return false;
+	if(n == 2 or n == 3)
+		return true;
+	if(n % 2 == 0 or n % 3 == 0)
+		return false;
+	for(int i = 5; i * i <= n; i += 6)//6 as we are already checking for 2 and 3 above
+	{
+		if(n % i == 0 or n % (i + 2) == 0) //checks for divison of 5,7 then 11,13.....
+			return false;
+	}
+	return true;
 }
 int main()
 {
-    double t;
+    int t;
     cin >> t;
     while(t--)
     {
-        double b;
-        double c;
-        cin >> b >> c;
-        double PI = acos(-1);
-        double start = 0;
-        double end = PI/ 2;
-        double step = 1e-6;
-        while(start < end)
-        {
-            double mid = start + (end - start) / 2;
-            if(Calcualate(mid, b, c) < Calcualate(mid + step, b, c))
-            {
-                end = mid;
-            }
-            else
-            {
-                start = mid;
-            }
-        }
-        cout << end << endl;
-        cout << Calcualate(end, b, c) << endl;
+    	int n;
+    	cin >> n;
+    	if(IsPrime(n))
+    	{
+    		cout << "YES, " << n << " is a prime no.";
+    	}
+    	else
+    	{
+    		cout << "NO, " << n << " is not a prime no.";
+    	}
+    	cout << endl;
     }
 }
+//T.C: O(sqrt(n))
+//S.C: O(1)
