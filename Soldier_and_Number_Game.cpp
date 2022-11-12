@@ -24,7 +24,7 @@ int32_t main()
 		int cnt = 0;
 		while(n > 1)
 		{
-			//cout << n << endl;
+			cout << n << endl;
 			for(int i = 2; i <= n; i++)
 			{
 				if(n % i == 0)
@@ -38,3 +38,8 @@ int32_t main()
 		cout << cnt << endl;
 	}
 }
+/*TEST CASE:
+1
+5000000 4999995
+OUTPUT: 13 EXPECTED : 23
+*/
