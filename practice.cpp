@@ -1,35 +1,30 @@
 #include<bits/stdc++.h>
+typedef long long ll;
+typedef unsigned long long ull;
+
+const double pi = acos(-1);
+
 using namespace std;
-#define int long long
-int32_t main()
-{
-	int n;
-	cin >> n;
-	int arr[n + 1];
-	arr[0] = 0;
-	int pre[n + 1];
-	pre[0] = 0;
-	for(int i = 1; i <= n; i++)
-	{
-		cin >> arr[i];
-		pre[i] = pre[i - 1] + arr[i];
+
+vector<pair<ll, ll> > v;
+
+int main(){
+	int n, m;
+	ll c, t, k = 0;
+	cin >> n >> m;
+	for (int i = 0; i < n; i++){
+		scanf("%lld %lld", &c, &t);
+		v.push_back(make_pair(k, k + c * t));
+		k += c * t;
 	}
-	sort(arr, arr + n + 1);
-	int pre1[n + 1];
-	pre1[0] = 0;
-	for(int i = 1; i <= n; i++)
-		pre1[i] = pre1[i - 1] + arr[i];
-	int m;
-	cin >> m;
-	int type[m], l[m], r[m];
-	for(int i = 0; i < m; i++)
-	{
-		cin >> type[i] >> l[i] >> r[i];
-		if(type[i] == 1)
-			cout << pre[r[i]] - pre[l[i] - 1] << endl;
-		else
-		{	 
-			cout << pre1[r[i]] - pre1[l[i] - 1] << endl;
-		}
+	int j = 1;
+	for (int i = 0; i < m; i++){
+		ll a;
+		scanf("%lld", &a);
+		while (j < n && a > v[j].first) j++;//since we can notice moments are in increasing order so, we can 
+											//directly do this as soon as total sum increases print 'j' we 
+											//don't need to do 'j - 1' as we have choosen 0 based indexng.
+		printf("%d\n", j);
 	}
+    return 0;
 }
