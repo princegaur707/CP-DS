@@ -5,7 +5,7 @@ bitset<N>p;
 vector<int>primes;
 void Prime_Sieve()
 {
-	for(int i = 3; i * i < N; i += 2)
+	for(int i = 3; i * i <= N; i += 2)
 	{
 		if(p[i] == 0)
 		{
