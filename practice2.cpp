@@ -1,21 +1,45 @@
-#include <bits/stdc++.h>
-#define l 5555555
-int ehPrimo[l];
-int main(void) {
-	for(int i=2;i<l;i++)
-		if(ehPrimo[i]==0)
-			for(int j=i;j<=l;j+=i)
-				ehPrimo[j]=ehPrimo[j/i]+1;
-	for(int i=1;i<=l;i++)
-		ehPrimo[i]+=ehPrimo[i-1];
-		int t;
-	scanf("%d",&t);
-	while(t--)
+
+#include<cstdio>
+#include<cstring>
+typedef __int64 ll;
+const int N = 10000005;
+bool p[N];
+ll cnt[N];
+int main()
+{
+	int n,i,j;
+	scanf("%d",&n);
+	for(i=1;i<=n;i++)
 	{
-	int a,b;
-	scanf("%d %d",&a,&b);
-	printf("%d \n",(ehPrimo[a]-ehPrimo[b]));
+		int v;
+		scanf("%d",&v);
+		cnt[v]++;
+	}
+	for(i=2;i<N;i++)if(!p[i])
+	{
+		for(j=2*i;j<N;j+=i)
+		{
+			cnt[i]+=cnt[j];
+			p[j]=true;
+		}
+	}
+	for(int i = 0; i < 100; i++)
+		printf(p[i]);
+	printf("\n");
+	for(i=2;i<N;i++)
+	{
+		if(p[i])cnt[i]=cnt[i-1];
+		else cnt[i]+=cnt[i-1];
+	}
+	int m;
+	scanf("%d",&m);
+	while(m--)
+	{
+		int l,r;
+		scanf("%d%d",&l,&r);
+		if(l>=N){puts("0");continue;}
+		if(r>=N)r=N-1;
+		printf("%I64d\n",cnt[r]-cnt[l-1]);
 	}
 	return 0;
 }
-  
