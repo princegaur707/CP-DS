@@ -1,4 +1,3 @@
-
 #include<cstdio>
 #include<cstring>
 typedef __int64 ll;
@@ -23,9 +22,6 @@ int main()
 			p[j]=true;
 		}
 	}
-	for(int i = 0; i < 100; i++)
-		printf(p[i]);
-	printf("\n");
 	for(i=2;i<N;i++)
 	{
 		if(p[i])cnt[i]=cnt[i-1];

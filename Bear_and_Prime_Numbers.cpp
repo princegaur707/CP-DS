@@ -1,69 +1,51 @@
-//I have understood how they are going after the patterns such as For 2 --> 4, 6, 8, 10. For n -> 2*n, 3n,4n,5n...
-//but unable to understand if there is any impact of this on time complexity and if there is 
-//now what is TC as earlier it was O(m * n). correct answer below
 #include<bits/stdc++.h>
 using namespace std;
-#define int long long
-const int N = 1e7 + 500;
+const int N = 10000005;
 bitset<N>primes;
-void findprimes(long n)
+long long freq[N];
+int main()
 {
-	primes[0] = 1;
-	primes[1] = 1;
-	for(int i = 4; i <= n; i += 2)
+	int n;
+	cin >> n;
+	while(n--)
 	{
-		primes[i] = 1;
+		int x;
+		cin >> x;
+		freq[x]++;
 	}
-	for(int i = 3; i * i <= n ; i += 2)
+	for(int i = 2; i < N; i++)
 	{
-		if(primes[i] == 0)
+		if(!primes[i])
 		{
-			for(int j = i * i; j <= n; j += i)
+			for(int j = 2 * i; j < N; j += i)
 			{
+				freq[i] += freq[j];
 				primes[j] = 1;
 			}
 		}
 	}
-}
-int32_t main()
-{
-	int n;
-	cin >> n;
-	int maxi = -1;
-	int arr[n];
-	for (int i = 0; i < n; i++)
+	for(int i = 2; i < N; i++)
 	{
-		cin >> arr[i];
-		maxi = max(maxi, arr[i]);
+		if(!primes[i])
+			freq[i] += freq[i - 1];
+		else
+			freq[i] = freq[i - 1];
 	}
-	findprimes(maxi);
-	int pre[maxi + 1] = {0};
-	for(int i = 0; i <= maxi; i++)
-	{
-		if(primes[i] == 0)
-		{
-			for(int j = 0; j < n; j++)
-			{
-				if(arr[j] % i == 0)
-					pre[i]++;
-			}
-		}			
-	}
-	for(int i = 1; i <= maxi; i++)
-		pre[i] += pre[i - 1];
 	int m;
 	cin >> m;
-	for(int i = 0; i < m; i++)
+	while(m--)
 	{
 		int l;
 		int r;
-		cin >> l >> r;	
-		r = min(r, maxi);
-		if(l > maxi)
+		cin >> l >> r;
+		if(l >= N)
 		{
-			l = r + 1;
+			cout << "0" << endl;
+			continue;
 		}
-		cout << pre[r] - pre[l - 1] << endl;
+		if(r >= N)
+			r = N - 1;
+		cout << freq[r] - freq[l - 1] << endl;
 	}
 }
 
