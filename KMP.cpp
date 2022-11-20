@@ -54,10 +54,11 @@ void KMP(char *s, char *p)
         }
         if(j == lp) //strings matched
                     //If j will be lp it means it must have been updated 'j+1' 
-            {      //after matching the last character too so we are matching these.
+        {           //after matching the last character too so we are matching these.
             cout << "i: " << i <<" j: " << j << endl;
             cout << "Pattern found at " << i-lp+1 << " position." << endl; //we now need to go to previous
             //no. as to see from where we need to match it is having same reason as base of KMP approach.
+            j = table[j - 1];
         }
     }
 }
