@@ -8,10 +8,11 @@ void Solve(char* ip, char* op, int i, int j)
 		cout << op << endl;
 		return;
 	}
-	op[j] = ip[i];
-	Solve(ip, op, i + 1, j + 1);
 	
 	Solve(ip, op, i + 1, j);//want to skip the character
+
+	op[j] = ip[i];
+	Solve(ip, op, i + 1, j + 1);
 }
 int main()
 {
