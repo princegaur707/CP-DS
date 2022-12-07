@@ -29,7 +29,7 @@ void Solve(char* in, char *output, int i, int j) {
 
 int main() {
 	char in[10000];//Since ye character array hain: that means it will
-	//end on NULL Character:
+	//end with NULL Character:
 	cin >> in;
 
 	char output[10000];

@@ -1,23 +1,22 @@
 #include<bits/stdc++.h>
 using namespace std;
-void Solve(char* ip, char* op, int i, int j)
+void Permutate(char* ip, int i)
 {
 	if(ip[i] == '\0')
 	{
-		op[j] = '\0';
-		cout << op << endl;
+		cout << ip << endl;
 		return;
 	}
-	
-	Solve(ip, op, i + 1, j);//want to skip the character
-
-	op[j] = ip[i];
-	Solve(ip, op, i + 1, j + 1);
+	for(int j = i; ip[j] != '\0'; j++)
+	{
+		swap(ip[i], ip[j]);
+		Permutate(ip, i + 1);
+		swap(ip[i], ip[j]);
+	}
 }
 int main()
 {
-	char ip[100]; //char array for input
-	char op[100];//char array for output
+	char ip[100];
 	cin >> ip;
-	Solve(ip, op, 0, 0);//sending the starting of input and output array as 0, 0.
+	Permutate(ip, 0);
 }
