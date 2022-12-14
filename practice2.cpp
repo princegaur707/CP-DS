@@ -1,14 +1,18 @@
 #include<bits/stdc++.h>
 using namespace std;
-void Solve(int n)
+int gcd(int a, int b)
 {
-	if(n == 0)
-		return;
-	cout << n << endl;
-	Solve(n - 1);
-	cout << n << endl;
+	if(a == 0)
+		return b;
+	if(b == 0)
+		return a;
+	if(a == b)
+		return a;
+	if(a < b)
+		return gcd(a, b - a);
+	return gcd(a - b, b);
 }
 int main()
 {
-	Solve(5);
+	cout << gcd(98, 56);
 }
