@@ -2,55 +2,55 @@
 using namespace std;
 bool visited[1001][1001];
 bool solution[1001][1001];
-bool Rat_In_Maze(char maze[][1001], int i, int j, int n, int m)
+bool Rat_in_maze(char maze[][1001], int i, int j, int m, int n)
 {
-	if(i == n and j == m)
+	if(i == m and j == n)
 	{
 		solution[i][j] = 1;
-		for(int x = 0; x <= n; x++)
+		for(int x = 0; x <= m; x++)
 		{
-			for(int y = 0; y <= m; y++)
+			for(int y = 0; y <=n; y++)
 			{
 				cout << solution[x][y] << " ";
 			}
 			cout << endl;
 		}
-		cout << endl;
-		return false;
+		return true;
 	}
-	if(visited[i][j] == 1)
+	if(visited[i][j])
 		return false;
 	visited[i][j] = 1;
 	solution[i][j] = 1;
-	if(j + 1 <= m and visited[i][j + 1] == 0)
+	if(j + 1 <= n and !visited[i][j + 1])
 	{
-		bool step = Rat_In_Maze(maze, i, j + 1, n, m);
-		if(step == 1)
+		bool step = Rat_in_maze(maze, i, j + 1, m, n);
+		if(step)
 			return true;
 	}
-	if(i + 1 <= n and visited[i + 1][j] == 0)
+	if(i + 1 <= m and !visited[i + 1][j])
 	{
-		bool step = Rat_In_Maze(maze, i + 1, j, n, m);
-		if(step == 1)
+		bool step = Rat_in_maze(maze, i + 1, j, m, n);
+		if(step)
 			return true;
 	}
-	solution[i][j] = 0;
+	solution[i][j] = 0; //backtrack
 	return false;
 }
 int main()
 {
-	int n, m;
-	cin >> n >> m;
+	int m;
+	int n;
+	cin >> m >> n;
 	char maze[1001][1001];
-	for(int i = 0; i < n; i++)
+	for(int i = 0; i < m; i++)
 	{
-		for(int j = 0; j < m; j++)
+		for(int j = 0; j < n; j++)
 		{
 			cin >> maze[i][j];
 			if(maze[i][j] == 'X')
 				visited[i][j] = 1;
 		}
 	}
-	n--, m--;//as we are following ZERO based indexing while in question 1 based in given
-	Rat_In_Maze(maze, 0, 0, n, m);
+	if(!Rat_in_maze(maze,0, 0, m -1, n -1))
+		cout << "-1";
 }
