@@ -8,6 +8,7 @@ void Permute(char* in, int i)
 		return;
 	}
 	for (int j = i; in[j] != '\0'; j++) {
+		cout << "(" << i << "," << j << ")";
 
 		swap(in[i], in[j]);
 
