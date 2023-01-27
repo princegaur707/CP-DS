@@ -1,37 +1,36 @@
 #include<bits/stdc++.h>
 using namespace std;
-// const int N = 0;
 
+class node{
+public:
+	int data;
+	node *next;
 
-
-void string_equivalence(char* output, int i, int Max_character, int n) {
-	if (i == n) {
-		output[i] = '\0';
-		cout << output << endl;
-		return;
+	node(int newdata){
+		data = newdata;
+		next = NULL;
 	}
-
-
-
-	for (char ch = 'a'; ch <= Max_character; ch++) {
-
-		output[i] = ch;
-		//Agar hum maximum element ko us block par fill kar rahe
-		//next case ke liye max_character will increment by 1;
-
-		if (ch == Max_character) {
-			string_equivalence(output, i + 1, Max_character + 1, n);
-		} else {
-			string_equivalence(output, i + 1, Max_character, n);
-		}
+};
+void InsertAtHead(node*&head, int value){
+	node *n = new node(value);
+	n->next = head;
+	head = n;
+}
+void Print(node*&head){
+	node *temp = head;
+	while(temp != NULL){
+		cout << temp->data <<"-->";
+		temp = temp->next;
 	}
 }
-
-
-int main() {
-	int N;
-	cin >> N;
-	char output[1000];
-
-	string_equivalence(output, 0, 'a', N);
+int main(){
+	int n;
+	cin >> n;
+	node *head = NULL;
+	for(int i = 0; i < n; i++){
+		int x;
+		cin >> x;
+		InsertAtHead(head, x);
+	}
+	Print(head);
 }
