@@ -117,7 +117,7 @@ ek pointer=x;
 node* midPoint2(node* head) {
 	node* slow = head;
 	node* fast = head;
-	while (fast->next != NULL and fast != NULL) {
+	while (fast->next->next != NULL and fast != NULL) {
 		/*fast = fast->next;
 		fast = fast->next;*/
 		fast = fast->next->next;
@@ -216,12 +216,24 @@ int main() {
 	node* x = midPoint1(head);
 	cout << x->data << endl;
 	node* y = midPoint2(head);
-	cout << "H" << y->data << endl;
-	cout << "hello";
-	// cout << searchIterative(head, 140) << endl;
-	// cout << searchRecursive(head, 40) << endl;
-	// ReverseLL(head);
-	// Print(head);
-	// cout << endl;
-
+	cout << y->data << endl;
+	cout << "HELLO" << endl;
+	cout << searchIterative(head, 140) << endl;
+	cout << searchRecursive(head, 40) << endl;
+	ReverseLL(head);
+	Print(head);
+	cout << endl;
 }
+
+//Input:
+/*
+	5
+	10 20 30 40 50
+	10->20->30->40->50;
+	head=first
+	node
+	tail =last node?
+	 given nahi hota
+	 tumko nikalna padhta hian.
+*/
+//50->40->30->20->10->NULL
