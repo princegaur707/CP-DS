@@ -1,3 +1,4 @@
+//https://leetcode.com/problems/linked-list-cycle-ii/description/
 /**
  * Definition for singly-linked list.
  * struct ListNode {
@@ -10,7 +11,8 @@ class Solution {
     bool HasCycle(ListNode *head){
         ListNode *slow = head;
         ListNode *fast = head;
-        while (fast !=NULL and fast->next != NULL) {
+        while (fast !=NULL and fast->next != NULL) {//fast should be ahead of 
+        //fast->next as it will not create error for Test case:[] ans is -1
             slow = slow->next;
             fast = fast->next->next;
             if(slow == fast)
