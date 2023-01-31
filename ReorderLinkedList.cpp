@@ -1,3 +1,4 @@
+//https://leetcode.com/problems/reorder-list/description/
 /**
  * Definition for singly-linked list.
  * struct ListNode {
@@ -9,53 +10,41 @@
  * };
  */
 class Solution {
-    ListNode* mid(ListNode* head) {
-        if (head == NULL or head->next == NULL) {
-            return head;
-        }
-        ListNode* fast = head;
+    ListNode* MidPoint(ListNode* head) {
         ListNode* slow = head;
-        while (fast and fast->next) {
-            fast = fast->next->next;
+        ListNode* fast = head;
+        while(fast and fast->next != NULL) {
             slow = slow->next;
+            fast = fast->next->next;
         }
         return slow;
     }
-
-    void ReverseLL(ListNode*& head) {
-        ListNode*current = head;
+    void ReverseLinkedList(ListNode*&head) {
+        ListNode* current = head;
+        ListNode* temp;
         ListNode* prev = NULL;
-        ListNode* n;
-
-        while (current != NULL) {
-            n = current->next;
+        while(current != NULL) {
+            temp = current->next;
             current->next = prev;
             prev = current;
-            current = n;
+            current = temp;
         }
         head = prev;
     }
 public:
     void reorderList(ListNode* head) {
-        if (head == NULL or head->next == NULL) {
+        if(head == NULL or head->next == NULL)
             return;
-        }
-
-        //Find the mid point:
-        ListNode* m = mid(head);
-        ListNode* h = head;
-
+        ListNode* m = MidPoint(head);
         ListNode* h1 = m->next;
-        ReverseLL(h1);
+        ListNode* h = head;
+        ReverseLinkedList(h1);
         m->next = NULL;
-
         ListNode* x;
         ListNode* y;
-
-        while (h1) {
+        while(h1) {
             x = h->next;
             y = h1->next;
-
             h->next = h1;
             h = x;
             h1->next = h;
