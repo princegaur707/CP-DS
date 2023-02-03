@@ -32,7 +32,7 @@ void CreateCycle(node *head) {
 	temp->next = head->next->next;
 }
 
-bool IsCycle(node *head){
+bool HasCycle(node *head){
 	node *fast = head;
 	node *slow = head;
 	while (fast->next != NULL and fast != NULL) {
@@ -55,9 +55,10 @@ void BreakCycle(node *head){
 		}
 	}
 	slow = head;//moved slow to the start of LL
-	node *prev = head;//
+	node *prev = head;//to insert NULL to the last we will need to track it once 
+	//slow==fast it's prev is always one step behind
 	while(prev->next != fast) {
-		prev = prev->next;//to insert NULL to the last we will need to track it
+		prev = prev->next;
 	}
 	while(slow != fast) {
 		slow = slow->next;
@@ -86,7 +87,7 @@ int main() {
 	Print(head);
 	cout << endl;
 	CreateCycle(head);
-	cout << IsCycle(head) << endl;
+	cout << HasCycle(head) << endl;
 	BreakCycle(head);
 	cout << IsCycle(head) << endl;
 }

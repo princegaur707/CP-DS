@@ -1,65 +1,123 @@
-/**
- * Definition for singly-linked list.
- * struct ListNode {
- *     int val;
- *     ListNode *next;
- *     ListNode() : val(0), next(nullptr) {}
- *     ListNode(int x) : val(x), next(nullptr) {}
- *     ListNode(int x, ListNode *next) : val(x), next(next) {}
- * };
- */
-class Solution {
-    ListNode* mid(ListNode* head) {
-        if (head == NULL or head->next == NULL) {
-            return head;
-        }
-        ListNode* fast = head;
-        ListNode* slow = head;
-        while (fast and fast->next) {
-            fast = fast->next->next;
-            slow = slow->next;
-        }
-        return slow;
-    }
+#include<bits/stdc++.h>
+using namespace std;
+// const int N = 0;
 
-    void ReverseLL(ListNode*& head) {
-        ListNode*current = head;
-        ListNode* prev = NULL;
-        ListNode* n;
-
-        while (current != NULL) {
-            n = current->next;
-            current->next = prev;
-            prev = current;
-            current = n;
-        }
-        head = prev;
-    }
+class node {
 public:
-    void reorderList(ListNode* head) {
-        if (head == NULL or head->next == NULL) {
-            return;
-        }
-
-        //Find the mid point:
-        ListNode* m = mid(head);
-        ListNode* h = head;
-
-        ListNode* h1 = m->next;
-        ReverseLL(h1);
-        m->next = NULL;
-
-        ListNode* x;
-        ListNode* y;
-
-        while (h1) {
-            x = h->next;
-            y = h1->next;
-
-            h->next = h1;
-            h = x;
-            h1->next = h;
-            h1 = y;
-        }
-    }
+	int data;
+	node* left;
+	node* right;
+	node(int inputdata) {
+		data = inputdata;
+		left = NULL;
+		right = NULL;
+	}
 };
+
+node* buildTree() {
+	int x;
+	cin >> x;
+	if (x == -1) {
+		return NULL;
+	} else {
+		node* root = new node(x);
+		root->left = buildTree();
+		root->right = buildTree();
+		return root;
+	}
+}
+
+void preorder(node* root) {
+	if (root == NULL) {
+		return;
+	}
+	//Root:
+	cout << root->data << " ";
+	preorder(root->left);
+	preorder(root->right);
+}
+
+void inorder(node* root) {
+	if (root == NULL) {
+		return;
+	}
+	inorder(root->left);
+	cout << root->data << " ";
+	inorder(root->right);
+}
+void postorder(node* root) {
+	if (root == NULL) {
+		return;
+	}
+	postorder(root->left);
+	postorder(root->right);
+	cout << root->data << " ";
+}
+
+int countnodes(node* root) {
+	if (root == NULL) {
+		return 0;
+	}
+	int x = countnodes(root->left);
+	int y = countnodes(root->right);
+	int ans = x + y + 1;
+	return ans;
+}
+int sum(node* root) {
+	if (root == NULL) {
+		return 0;
+	}
+	int x = sum(root->left);
+	int y = sum(root->right);
+	int ans = x + y + root->data;
+	return ans;
+}
+
+int height(node* root) {
+	if (root == NULL) {
+		return 0;
+	}
+	int left_subtree_height = height(root->left);
+	int right_subtree_height = height(root->right);
+	int ans = max(left_subtree_height, right_subtree_height) + 1;
+	return ans;
+}
+
+void mirror(node* &root) {
+	if (root == NULL) {
+		return;
+	}
+	swap(root->left, root->right);
+	mirror(root->left);
+	mirror(root->right);
+}
+int diameter(node* root) {
+	if (root == NULL) {
+		return 0;
+	}
+
+	int option1 = diameter(root->left);
+	int option2 = diameter(root->right);
+	//Diameter goes through the root:
+	int option3 = height(root->left) + height(root->right);
+
+	return max(option1, max(option2, option3));
+}
+//Time Complexity: O(n^2);
+
+
+
+// root:
+// two pointer: left and right:
+
+// the subtree which was ealier pointed by the pointer left
+// now will be pointed by the pointer right.
+
+int main() {
+	node* root = buildTree();
+	preorder(root);
+	cout << endl;
+	inorder(root);
+	cout << endl;
+	postorder(root);
+}
