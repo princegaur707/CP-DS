@@ -1,3 +1,7 @@
+//input: If we add 6 in the last this is not working till we do fast->next->next != NULL
+// 5
+// 1 2 3 4 5 
+// 1 2 3 4 5
 #include<bits/stdc++.h>
 using namespace std;
 
@@ -82,7 +86,7 @@ node* midPoint2(node *head) {
 	node* slow = head;
 	node* fast = head;
 	//for odd length	for even length
-	while (fast->next->next != NULL and fast != NULL) {
+	while (fast->next != NULL and fast != NULL) {
 		slow = slow->next;
 		fast = fast->next->next;
 	}
@@ -131,12 +135,12 @@ node* RecursiveReverseLinkedList(node* head) {//I am returning node
 		//zero length or one length
 		return head;
 	}
-	node* next_head = RecursiveReverseLinkedList(head->next);
+	node* new_head = RecursiveReverseLinkedList(head->next);
 	//I said to move one step ahead
 	node* current = head;
 	current->next->next = current;
 	current->next = NULL;
-	return next_head;	
+	return new_head;	
 }
 int main()
 {

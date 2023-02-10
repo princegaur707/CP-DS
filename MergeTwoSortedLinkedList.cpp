@@ -1,5 +1,5 @@
 // https://leetcode.com/problems/merge-two-sorted-lists/
-//This one is better as this do not requires creation of another linked list
+//This method is better as this do not requires creation of another linked list
 class Solution {
 public:
     ListNode* mergeTwoLists(ListNode* head1, ListNode* head2) {
@@ -18,7 +18,7 @@ public:
         return NULL;
     }
 };
-//Normal Method->By creating new LinkedList
+//Normal Method->By creating new Linked Lists
 class Solution {
     void Insert(ListNode*&head, int value) {
         if (head == NULL) {

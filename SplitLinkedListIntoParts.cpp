@@ -29,7 +29,7 @@ public:
       //will have NULL only
       for (int i = 0; i < k; i++) {
         if (head) {
-          ListNode *n = head->next;
+          ListNode *n = head->next;//store address of next node
           head->next = NULL;
           ans.push_back(head);
           head = n;
@@ -54,15 +54,4 @@ public:
     }
     return ans;
   }
-
-
-
-
-
-
-
-
-
-
-
 };
