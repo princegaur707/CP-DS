@@ -99,7 +99,7 @@ void bfs(node *root) {
 		}
 	}
 }
-//If we want to print level order in hierarchy 
+//If we want to print level order in hierarchy,
 //based on their level like:
 //2
 //9 10
@@ -113,12 +113,11 @@ void bfs2(node *root) {
 		if(first == NULL) {
 			cout << endl;
 			q.pop();
-			if(!q.empty()){
+			if(!q.empty()){//if queue is empty no need to push NULL this step is necessary as otherwise we will have infinite outputs everytime space will be added
 				q.push(NULL);
 			}
 		}
-		else {//because if element is NULL there can be 
-			//left or right of it
+		else {//if element not NULL processed same as earlier
 			cout << first->data << " ";
 			q.pop();
 			if(first->left != NULL) {
