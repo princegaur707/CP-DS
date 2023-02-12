@@ -129,6 +129,23 @@ void bfs2(node *root) {
 		}
 	}
 }
+node* BuildTreeFromPreAndIn(int *in, int *pre, int s, int e) {
+	if(s > e)
+		return NULL;
+	static int i = 0;
+	int index = -1;
+	node *root = new node(pre[i]);
+	for(int j = s; j <= e; j++) {
+		if(pre[i] == in[j]) {
+			index = j;
+			break;
+		}
+	}
+	i++;
+	root->left = BuildTreeFromPreAndIn(in, pre, s, index - 1);
+	root->right = BuildTreeFromPreAndIn(in, pre, index + 1, e); 
+	return root;
+}
 int main()
 {
 	node *root = BuildTree();
@@ -145,5 +162,10 @@ int main()
 	bfs(root);
 	cout << endl;
 	bfs2(root);
+	cout << "====================" << endl;
+	int in[] = {9, 4, 2, 3, 10};
+	int pre[] = {2, 9, 4, 10, 3};
+	node *root9 = BuildTreeFromPreAndIn(in, pre, 0, 4);
+	Preorder(root9);
 	cout << endl;
 }
