@@ -14,17 +14,18 @@ int main()
 		if(x < y)
 		{
 			arr.push_back({-y, i});//to store the inverse
+			//this logic stands b/c x cannot be greater than highest y otherwise condn of x < y cannot be satisfied
 		}
 		else
 		{
 			brr.push_back({y, i});
 		}
 	}
-	for(auto x : arr)
-	{
-		cout << x.first << " ";
-	}
-	cout << endl;
+	// for(auto x : arr)
+	// {
+	// 	cout << x.first << " ";
+	// }
+	// cout << endl;
 	sort(arr.begin(), arr.end());
 	sort(brr.begin(), brr.end());
 	if(arr.size() < brr.size())
