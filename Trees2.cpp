@@ -162,5 +162,6 @@ int main() {
 	//Recursive way: For every nod
 	cout << "IsBST: " << IsBST(root2) << endl;
 	cout << "ISBST: " << IsBST(root) << endl;
-	PrintRange(root2, 4, 7);
+	PrintRange(root2, 4, 7);//We want element in array b/w key1 and key2 in sorted order
+	
 }
