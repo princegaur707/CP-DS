@@ -22,7 +22,7 @@ public:
       for(auto x : v)
         cout << x << " ";
       cout << endl;
-      if(root->val == targetSum and !root->left and !root->right) {
+      if(root->val == targetSum and !root->left and !root->right) {//As this is leaf node so no left and right exist
         cout << "c" << endl;
         ans.push_back(v);
       }
