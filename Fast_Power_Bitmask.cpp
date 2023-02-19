@@ -5,7 +5,7 @@ int fast_power_using_recursion(int a, int b) {
 	if (b == 0)
 		return 1;
 	int x = fast_power_using_recursion(a, b / 2);
-	if (b & 1)//last digit and operation
+	if (b & 1)//will find whether no. is odd or even via last digit operation if odd 
 		return a * x * x;
 	return x * x;
 }
