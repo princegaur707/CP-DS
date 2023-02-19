@@ -1,3 +1,5 @@
+//https://leetcode.com/problems/permutation-in-string/description/
+//Helpful video: https://www.youtube.com/watch?v=UbyhOgBN834
 class Solution {
 public:
     bool checkInclusion(string s1, string s2) {
