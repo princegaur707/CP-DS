@@ -24,10 +24,6 @@ int inverseModulo(int a, int m) {
 	return (x + m) % m;//as we may get negative number too
 }
 int32_t main() {
-	int a = 30;
-	int b = 18;
-	EED(a, b);
-	cout << x << " " << y << endl;
 	cout << inverseModulo(6, 7) << endl;
 }
 //ax + by = gcd(a, b)

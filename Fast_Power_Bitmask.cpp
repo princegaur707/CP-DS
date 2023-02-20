@@ -16,7 +16,7 @@ int fast_power_using_bitmask(int a, int b) {
 			result = result * a;
 		}
 		a = a * a;//increasing place value
-		b = b >> 1;//removing last element
+		b = b >> 1;//removing last digit
 	}
 	return result;
 }
