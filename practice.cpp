@@ -10,12 +10,13 @@ int main() {
 	cin >> a;
 	int r = 0;
 	if(n == 0)
-		cout << a;
+		cout << a << endl;
 	else {
 		for(int i = 0; i < a.size(); i++) {
 			int n1 = r * 10 + (a[i] - 48);
 			r = n1 % n;
 		}
-		cout << gcd(n, r);
+		cout << gcd(n, r) << endl;
 	}
+	return 0;
 }

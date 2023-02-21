@@ -8,7 +8,7 @@ int gcd(int a, int b) {
 int32_t main() {
 	int n;
 	cin >> n;
-	string a;//storing large number in the form of string
+	string a;//very large no. can't be stored in integer so that's why string
 	cin >> a;
 	int r = 0;
 	if (n == 0)
