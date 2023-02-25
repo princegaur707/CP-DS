@@ -21,7 +21,7 @@ int inverseModulo(int a, int m) {
 	// 	return 0;
 	// }
 	EED(a, m);
-	return (x + m) % m;
+	return (x + m) % m;//to make sure positive value is returned
 }
 int32_t main() {
 	int n;
@@ -55,5 +55,5 @@ int32_t main() {
 	}
 	z = n - (x + y);
 	cout << x << " " << y << " " << z << " " << endl;
-	
+
 }
