@@ -1,3 +1,4 @@
+//https://codeforces.com/problemset/problem/1185/C2
 #include<bits/stdc++.h>
 using namespace std;
 int main() {
@@ -15,9 +16,9 @@ int main() {
 		if(x > 0) {
 			for(int j = 100; j > 0; j--) {
 				y = freq[j] * j;
-				if(x <= y) {
+				if(x <= y) {//To deal with situation when required sum can be obtained from current 
+					//element's one or more frequency
 					count += (x + j - 1) / j;
-					// cout << count << endl;
 					break;
 				}
 				count += freq[j];
@@ -33,4 +34,5 @@ int main() {
 second best option priority queue may lead to TLE when the sum we want to find may be 
 present in queue at last so additional logn will come in TC. but we want to do it
 in O(n) so we can notice here in question max time can student can take for test
-is 100 with which we can understand that frequencey array is best suitable here*/
+is 100 with which we can understand that frequencey array is best suitable here
+(x + j - 1) / j: when the j element  */
