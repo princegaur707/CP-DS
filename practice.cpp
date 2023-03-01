@@ -1,32 +1,41 @@
 #include<bits/stdc++.h>
 using namespace std;
-int main() {
-	int n, M;
-	cin >> n >> M;
-	int arr[n];
-	for(int i = 0; i < n; i++)
-		cin >> arr[i];
-	int freq[101] = {0};//for frequency array
-	int count = 0;
-	int total = 0, x = 0, y;
+int n, d;
+int a[100005];
+void Solve() {
+	int total = 0;
 	for(int i = 0; i < n; i++) {
-		x = total - M + arr[i];
-		cout << "total: " << total << endl;
-		count = 0;
-		if(x > 0) {
-			for(int j = 100; j > 0; j--) {
-				y = freq[j] * j;
-				if(x <= y) {
-					count += (x + j - 1) / j;
-					cout << count << endl;
-					break;
-				}
-				count += freq[j];
-				x = x - y;
+		if (a[i] == 0) {
+			if (a[i] < 0)
+				total = 0;
+		}
+		else {
+			total += a[i];
+			if(total > d) {
+				cout << "-1";
+				return;
 			}
 		}
-		freq[arr[i]]++;
-		total += arr[i];
-		cout << count << " ";
 	}
+	int visit = 0;
+	total = 0;
+	for(int i = 0; i < n; i++) {
+		if(a[i] == 0) {
+			if(total < 0) {
+				total = d;
+				visit++;
+			}
+		}
+		else 
+			total += a[i];
+			if(total > d)
+				total = d;
+	}
+	cout << visit;
+}
+int main() {
+	cin >> n >> d;
+	for(int i = 0; i < n; i++)
+		cin >> a[i];
+	Solve();
 }
