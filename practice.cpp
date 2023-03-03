@@ -6,7 +6,7 @@ void Solve() {
 	int total = 0;
 	for(int i = 0; i < n; i++) {
 		if (a[i] == 0) {
-			if (a[i] < 0)
+			if (total < 0)
 				total = 0;
 		}
 		else {
