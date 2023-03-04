@@ -1,3 +1,8 @@
+//Approach: 
+//firstly check if no. is divisible by k or not
+//if Not divisible? directly insert no issue in set as it can never have k multiple
+//if Yes, divisible? check whether it's corresponding no. is present in set or not
+//if Not present? Insert this no. too into the set no issues 
 #include<bits/stdc++.h>
 using namespace std;
 int main() {
@@ -16,5 +21,8 @@ int main() {
 		else if(s.count(arr[i] / k) == false)
 			s.insert(arr[i]);
 	}
+	for(int x : s)
+		cout << x << " ";
+	cout << endl;
 	cout << s.size();
 }

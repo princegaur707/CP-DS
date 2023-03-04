@@ -1,41 +1,28 @@
 #include<bits/stdc++.h>
 using namespace std;
-int n, d;
-int a[100005];
-void Solve() {
-	int total = 0;
-	for(int i = 0; i < n; i++) {
-		if (a[i] == 0) {
-			if (total < 0)
-				total = 0;
-		}
-		else {
-			total += a[i];
-			if(total > d) {
-				cout << "-1";
-				return;
-			}
-		}
-	}
-	int visit = 0;
-	total = 0;
-	for(int i = 0; i < n; i++) {
-		if(a[i] == 0) {
-			if(total < 0) {
-				total = d;
-				visit++;
-			}
-		}
-		else 
-			total += a[i];
-			if(total > d)
-				total = d;
-	}
-	cout << visit;
-}
+string a[100005];
 int main() {
-	cin >> n >> d;
-	for(int i = 0; i < n; i++)
-		cin >> a[i];
-	Solve();
+	int t;
+	cin >> t;
+	while(t--) {
+		int n;
+		cin >> n;
+		unordered_map<string, bool>m;
+		for(int i = 0; i < n; i++) {
+			cin >> a[i];
+			m[a[i]] = 1;
+		}
+		for(int i = 0; i < n; i++) {
+			bool f = 0;
+			for(int j = 0; j < a[i].size() - 1; j++) {
+				cout << "j: " << j << endl;
+				if(m[a[i].substr(0, j + 1)] && m[a[i].substr(j + 1, a[i].size() - j)]){
+					// cout << "OUT: " << j << " " << a[i].size() - j << endl;
+					f = 1;
+				}
+			}
+			// cout << f;
+		}
+		cout << endl;
+	}
 }
