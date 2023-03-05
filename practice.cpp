@@ -1,28 +1,56 @@
 #include<bits/stdc++.h>
 using namespace std;
-string a[100005];
+int func(int x) {
+	int cnt = 0;
+	while(x) {
+		cnt++;
+		x /= 10;
+	}
+	return cnt;
+}
 int main() {
 	int t;
 	cin >> t;
 	while(t--) {
 		int n;
 		cin >> n;
-		unordered_map<string, bool>m;
+		multiset<int, greater<int>>s1;
+		multiset<int, greater<int>>s2;
 		for(int i = 0; i < n; i++) {
-			cin >> a[i];
-			m[a[i]] = 1;
+			int x;
+			cin >> x;
+			s1.insert(x);
 		}
 		for(int i = 0; i < n; i++) {
-			bool f = 0;
-			for(int j = 0; j < a[i].size() - 1; j++) {
-				cout << "j: " << j << endl;
-				if(m[a[i].substr(0, j + 1)] && m[a[i].substr(j + 1, a[i].size() - j)]){
-					// cout << "OUT: " << j << " " << a[i].size() - j << endl;
-					f = 1;
-				}
+			int x;
+			cin >> x;
+			auto it = s1.find(x);
+			if(it != s1.end()) 
+				s1.erase(it);
+			else
+				s2.insert(x);
+		}
+		int ops = 0;
+		int i = 0;
+		while(*s1.begin() > 9) {
+			ops++;
+			s1.insert(func(*s1.begin()));
+		}
+		while(*s2.begin() > 9){
+			ops++;
+			s2.insert(func(*s2.begin()));
+		}
+		for(auto x : s1) {
+			if(s2.find(x) != s2.end()) {
+				auto it = s1.find(x);
+				if(it != s1.end()) 
+					s1.erase(it);
+				auto it2 = s2.find(x);
+				if(it2 != s2.end())
+					s2.erase(it2);
 			}
-			// cout << f;
 		}
-		cout << endl;
+		ops = (s1.size() + s2.size()) * 2;
+		cout << ops;
 	}
 }
