@@ -26,7 +26,7 @@ int32_t main() {
 		for(int j = m; j >= 1; j--)
 			dp4[i][j] = grid[i][j] + max(dp4[i - 1][j], dp4[i][j + 1]);
 	for(int i = 2; i < n; i++)
-		for(int j = 2; j < m; j++) {
+		for(int j = 2; j < m; j++) {//intersection should happen from (2->m - 1) only at corners not possible to intersect at one point only
 			int case1 = dp1[i - 1][j] + dp3[i + 1][j] + dp2[i][j - 1] + dp4[i][j + 1];
 			int case2 = dp1[i][j - 1] + dp3[i][j + 1] + dp2[i + 1][j] + dp4[i - 1][j];
 			ans = max(ans, max(case1, case2));
