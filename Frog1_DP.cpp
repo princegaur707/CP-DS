@@ -21,4 +21,4 @@ int32_t main() {
 	for(int i = 1; i <= n; i++)
 		cin >> arr[i];
 	cout << Solve(1) << endl;
-}
+} 
