@@ -3,7 +3,7 @@ using namespace std;
 #define MAX 3000
 
 int dp[MAX + 1][MAX + 1];
-string getLCS(string& s, string& t, int len) {
+string getLCS(string& s, string& t, int len) {//pass by reference is must otherwise TLE as string will be created repeatedly
 	string LCS;
 	int i = 0, j = 0;
 	while (len > 0) {
