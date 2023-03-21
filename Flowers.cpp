@@ -6,14 +6,14 @@ int dp[100005];
 int pre[100005];
 int k;
 int Total(int len) {
-	if(len == 0)
+	 if(len == 0)//That means we have found a way to reach the last bucket that means we have found an answer or a way
 		return 1;
 	if(dp[len] != -1)
 		return dp[len];
-	int option1 = Total(len - 1);
+	int option1 = Total(len - 1);//Red flower at the current index:
 	int option2 = 0;
 	if(len >= k)
-		option2 =	Total(len - k);
+		option2 =	Total(len - k);//White flower at the current index: so go directly at len - k position
 	return dp[len] = (option1 + option2) % mod;
 }	
 void Prefix_Sum() {
