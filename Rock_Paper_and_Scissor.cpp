@@ -52,11 +52,16 @@ double PaperWin(int r, int s, int p) {
 	return dp[r][s][p] = ans; 
 }
 int32_t main() {
-	cin >> r >> s >> p;
-	memset(dp, -1, sizeof(dp));
-	cout << fixed << setprecision(9) << RockWin(r, s, p) << " ";
-	memset(dp, -1, sizeof(dp));
-	cout << fixed << setprecision(9) << ScissorWin(r, s, p) << " ";
-	memset(dp, -1, sizeof(dp));
-	cout << fixed << setprecision(9) << PaperWin(r, s, p) << " ";
+	int t;
+	cin >> t;
+	while(t--) {
+		cin >> r >> s >> p;
+		memset(dp, -1, sizeof(dp));
+		cout << fixed << setprecision(9) << RockWin(r, s, p) << " ";
+		memset(dp, -1, sizeof(dp));
+		cout << fixed << setprecision(9) << ScissorWin(r, s, p) << " ";
+		memset(dp, -1, sizeof(dp));
+		cout << fixed << setprecision(9) << PaperWin(r, s, p) << " ";
+		cout << endl;
+	}
 }
