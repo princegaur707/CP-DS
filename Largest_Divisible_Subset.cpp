@@ -10,9 +10,8 @@ public:
     for (int j = 0; j < index; j++) {
       if (nums[index] % nums[j] == 0) {
         auto x = Solve(j, nums);
-        if (x.size() > ans.size()) {
+        if (x.size() > ans.size())
           ans = x;
-        }
       }
     }
     ans.push_back(nums[index]);
@@ -26,9 +25,8 @@ public:
 
     for (int i = 0; i < n; i++) {
       auto x = Solve(i, nums);
-      if (x.size() > ans.size()) {
+      if (x.size() > ans.size())
         ans = x;
-      }
     }
     return ans;
   }
