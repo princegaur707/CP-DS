@@ -1,25 +1,33 @@
 #include<bits/stdc++.h>
 using namespace std;
-#define int long long
-int ans = 0;
-int s = 0;
-string a;
-int k;
-int sum[1000005];
-
-int Solve() {
-  sum[0] = 1;
-  for(int i = 0; i < a.length(); i++) {
-    s += a[i] - '0';
-    if(s >= k)
-      ans += sum[s - k];
-    cout << s << endl;
-    sum[s]++;
+template<typename T>
+class Graph {
+public:
+  map<T, list<T>>h;
+  void AddEdge(T x, T y, bool bdr) {
+    h[x].push_back(y);
+    if(bdr == 1)
+      h[y].push_back(x);
   }
-  return ans;
-}
-int32_t main() {
-  cin >> k;
-  cin >> a;
-  cout << Solve();
+  void Print() {
+    for(auto x : h) {
+      T t1 = x.first;
+      cout << t1 << " --> " ;
+      list<T> t2 = x.second;
+      for(auto y : t2)
+        cout << y << " ";
+      cout << endl;
+    }
+  }
+};
+int main() {
+  Graph<string>g;
+  int n, m;
+  cin >> n >> m;
+  for(int i = 0; i < m; i++) {
+    string t, u;
+    cin >> t >> u;
+    g.AddEdge(t, u, 1);
+  }
+  g.Print();
 }
