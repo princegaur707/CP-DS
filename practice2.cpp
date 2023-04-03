@@ -1,123 +1,62 @@
-#include<bits/stdc++.h>
+// C++ program to print DFS traversal from
+// a given vertex in a given graph
+#include <bits/stdc++.h>
 using namespace std;
-// const int N = 0;
 
-class node {
+// Graph class represents a directed graph
+// using adjacency list representation
+class Graph {
 public:
-	int data;
-	node* left;
-	node* right;
-	node(int inputdata) {
-		data = inputdata;
-		left = NULL;
-		right = NULL;
-	}
+	map<int, bool> visited;
+	map<int, list<int> > adj;
+
+	// function to add an edge to graph
+	void addEdge(int v, int w);
+
+	// DFS traversal of the vertices
+	// reachable from v
+	void DFS(int v);
 };
 
-node* buildTree() {
-	int x;
-	cin >> x;
-	if (x == -1) {
-		return NULL;
-	} else {
-		node* root = new node(x);
-		root->left = buildTree();
-		root->right = buildTree();
-		return root;
-	}
+void Graph::addEdge(int v, int w)
+{
+	adj[v].push_back(w); // Add w to v’s list.
 }
 
-void preorder(node* root) {
-	if (root == NULL) {
-		return;
-	}
-	//Root:
-	cout << root->data << " ";
-	preorder(root->left);
-	preorder(root->right);
+void Graph::DFS(int v)
+{
+	// Mark the current node as visited and
+	// print it
+	visited[v] = true;
+	cout << v << " ";
+
+	// Recur for all the vertices adjacent
+	// to this vertex
+	list<int>::iterator i;
+	for (i = adj[v].begin(); i != adj[v].end(); ++i)
+		if (!visited[*i])
+			DFS(*i);
 }
 
-void inorder(node* root) {
-	if (root == NULL) {
-		return;
-	}
-	inorder(root->left);
-	cout << root->data << " ";
-	inorder(root->right);
-}
-void postorder(node* root) {
-	if (root == NULL) {
-		return;
-	}
-	postorder(root->left);
-	postorder(root->right);
-	cout << root->data << " ";
-}
+// Driver's code
+int main()
+{
+	// Create a graph given in the above diagram
+	Graph g;
+	g.addEdge(0, 1);
+	g.addEdge(0, 2);
+	g.addEdge(1, 2);
+	g.addEdge(2, 0);
+	g.addEdge(2, 3);
+	g.addEdge(3, 3);
 
-int countnodes(node* root) {
-	if (root == NULL) {
-		return 0;
-	}
-	int x = countnodes(root->left);
-	int y = countnodes(root->right);
-	int ans = x + y + 1;
-	return ans;
-}
-int sum(node* root) {
-	if (root == NULL) {
-		return 0;
-	}
-	int x = sum(root->left);
-	int y = sum(root->right);
-	int ans = x + y + root->data;
-	return ans;
+	cout << "Following is Depth First Traversal"
+			" (starting from vertex 2) \n";
+
+	// Function call
+	g.DFS(2);
+
+	return 0;
 }
 
-int height(node* root) {
-	if (root == NULL) {
-		return 0;
-	}
-	int left_subtree_height = height(root->left);
-	int right_subtree_height = height(root->right);
-	int ans = max(left_subtree_height, right_subtree_height) + 1;
-	return ans;
-}
-
-void mirror(node* &root) {
-	if (root == NULL) {
-		return;
-	}
-	swap(root->left, root->right);
-	mirror(root->left);
-	mirror(root->right);
-}
-int diameter(node* root) {
-	if (root == NULL) {
-		return 0;
-	}
-
-	int option1 = diameter(root->left);
-	int option2 = diameter(root->right);
-	//Diameter goes through the root:
-	int option3 = height(root->left) + height(root->right);
-
-	return max(option1, max(option2, option3));
-}
-//Time Complexity: O(n^2);
-
-
-
-// root:
-// two pointer: left and right:
-
-// the subtree which was ealier pointed by the pointer left
-// now will be pointed by the pointer right.
-
-int main() {
-	node* root = buildTree();
-	preorder(root);
-	cout << endl;
-	inorder(root);
-	cout << endl;
-	postorder(root);
-}
+// improved by Vishnudev C
