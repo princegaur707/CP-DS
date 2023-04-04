@@ -1,2 +1,3 @@
-Following is Depth First Traversal (starting from vertex 2) 
-0 1 3 2 4 5 
+Component No. 0 --> 1 2 3 4 
+Component No. 1 --> 5 7 
+Total Components:2
