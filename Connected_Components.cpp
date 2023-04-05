@@ -21,13 +21,13 @@ public:
 		int cnt = 0;
 		for(auto x : m) {
 			if(!visited[x.first]){
-				cout << "Component No. " << cnt << " --> ";
+				cout << "Component No. " << cnt + 1<< " --> ";
 				Components(x.first);
 				cout << endl;
 				cnt++;
 			}
 		}
-		cout << "Total Components:" << cnt;
+		cout << "Total Components: " << cnt;
 	}
 };
 int main() {
