@@ -7,9 +7,9 @@ bool DFS_Helper(int node, int parent, int* visited, int color) {
 	visited[node] = color;
 	for (auto nbr : gr[node]) {
 		if (visited[nbr] == 0) {
-			int small_ans = DFS_Helper(nbr, node, visited, 3 - color);
+			int small_ans = DFS_Helper(nbr, node, visited, color);
 			if (small_ans == 0)
-				return false;
+				return false;//we cannot return true soloely on basis of one small_ans because other neighboours would also be remaining which might result in false
 		}
 		else if (nbr != parent and visited[nbr] == color)//nbr parent comparison not required acc. to me
 			return false;
