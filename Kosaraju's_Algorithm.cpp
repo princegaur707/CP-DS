@@ -26,7 +26,7 @@ void Solve(int n) {//step 1: Apply DFS and get the array based on
 	memset(visited, 0, sizeof(visited));//making visited array again '0'
 	//for preparing for step 3 
 	int component = 1;
-	for(int i = stack.size() - 1; i >= 0; i--) {
+	for(int i = stack.size() - 1; i >= 0; i--) {//moving right to left on stack
 		int node = stack[i];
 		if(!visited[node]) {
 			cout << "Component " << component++ << "-> ";
@@ -45,4 +45,4 @@ int main() {
 		rev_gr[y].push_back(x);//step 2 reversing the graph
 	}
 	Solve(n);
-}
+} 
