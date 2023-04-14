@@ -14,7 +14,7 @@ public:
 	void union_set(int m, int n, int *parent, int *rank) {
 		int s1 = Find(m, parent);
 		int s2 = Find(n, parent);
-		if(s1 != s2) {//obvious that's why we want to join both
+		if(s1 != s2) {//obvious that's why we want to join both so can be skipped
 			if(rank[s1] < rank[s2]) {
 				parent[s1] = s2;
 				rank[s2] += rank[s1];
