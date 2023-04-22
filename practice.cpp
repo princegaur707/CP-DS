@@ -1,43 +1,46 @@
 #include<bits/stdc++.h>
 using namespace std;
-template<typename T>
 class Graph {
-  map<T, list<T>>m;
+  int V;
+  vector<pair<int, int>>*l;
 public:
-  void AddEdge(T x, T y) {
-    m[x].push_back(y);
-    m[y].push_back(x);
+  Graph(int n) {
+    V = n;
+    l = new vector<pair<int, int>>[n];
   }
-  bool DFS_Helper(int node, int parent, int* visited, int color) {
-    visited[node] = color;
-    for(auto x : m[node]) {
-      if(!visited[x]) {
-        bool ans = DFS_Helper(x, node, visited, 3 - color);
-        if(ans == 0) 
-          return false;
-      }
-      else if(visited[x] == color)
-        return false;
+  void AddEdge(int x, int y, int w) {
+    l[x].push_back({y, w});
+    l[y].push_back({x, w});
+  }
+  int Prims_MST() {
+    priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>>pq;
+    pq.push({0, 0});
+    int ans = 0;
+    bool *visited = new bool[V] {0};
+    while (!pq.empty()) {
+      auto temp = pq.top();
+      pq.pop();
+      int to_edge = temp.second;
+      int weight = temp.first;
+      if (visited[to_edge])
+        continue;
+      visited[to_edge] = 1;
+      ans += weight;
+      for (auto nbr : l[to_edge])
+        if (!visited[nbr.first])
+          pq.push({nbr.second, nbr.first});
     }
-    return true;
-  }
-  bool DFS(T n) {
-    T visited[n] = {0};
-    int color = 1;
-    int ans = DFS_Helper(0, -1, visited, color);
-    for(int i = 0; i < n; i++) 
-      cout << i << " - Color -> " << visited[0] << endl;
     return ans;
   }
 };
 int main() {
-  Graph<int>g;
   int n, m;
   cin >> n >> m;
-  for(int i = 0; i < m; i++) {
-    int x, y;
-    cin >> x >> y;
-    g.AddEdge(x, y);
+  Graph g(n);
+  for (int i = 0; i < m; i++) {
+    int x, y, w;
+    cin >> x >> y >> w;
+    g.AddEdge(x - 1, y - 1, w);
   }
-  g.DFS(n);
+  cout << g.Prims_MST();
 }
