@@ -1,46 +1,54 @@
 #include<bits/stdc++.h>
 using namespace std;
+#define int long long
+template<typename T>
 class Graph {
-  int V;
-  vector<pair<int, int>>*l;
+  unordered_map<T,list<pair<T, int>>>l;
 public:
-  Graph(int n) {
-    V = n;
-    l = new vector<pair<int, int>>[n];
-  }
-  void AddEdge(int x, int y, int w) {
+  void AddEdge(T x, T y, int w) {
     l[x].push_back({y, w});
     l[y].push_back({x, w});
   }
-  int Prims_MST() {
-    priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>>pq;
-    pq.push({0, 0});
-    int ans = 0;
-    bool *visited = new bool[V] {0};
-    while (!pq.empty()) {
-      auto temp = pq.top();
-      pq.pop();
-      int to_edge = temp.second;
-      int weight = temp.first;
-      if (visited[to_edge])
-        continue;
-      visited[to_edge] = 1;
-      ans += weight;
-      for (auto nbr : l[to_edge])
-        if (!visited[nbr.first])
-          pq.push({nbr.second, nbr.first});
+  void Dijkstras(int src) {
+    unordered_map<T, int>distance; //will use distance only for visited
+    set<pair<int, int>>s;
+    for(auto x : l) 
+      distance[x.first] = INT_MAX;
+    distance[src] = 0;
+    s.insert({0, src});//weight, node
+    int cnt = 0;
+    while(!s.empty()) {
+      auto p = *(s.begin());
+      s.erase(s.begin());
+      T node = p.second;
+      T parent_weight = p.first;
+      for(auto children : l[node]) {
+        int edge_weight = children.second;
+        if(distance[children.first] > parent_weight + edge_weight) {
+          auto f = s.find({distance[children.first], children.first});
+          if(f != s.end())
+            s.erase(f);
+          distance[children.first] = parent_weight + edge_weight; 
+          s.insert({distance[children.first], children.first});
+        }
+      }
     }
-    return ans;
+    for(auto node : l) {
+      cout << "Distance of " << node.first + 1 << " from src " << src + 1 << " is " <<
+            distance[node.first] << endl; 
+    }
   }
 };
-int main() {
+int32_t main() {
   int n, m;
   cin >> n >> m;
-  Graph g(n);
-  for (int i = 0; i < m; i++) {
+  Graph<int>g;
+  for(int i = 0; i < m; i++) {
     int x, y, w;
     cin >> x >> y >> w;
     g.AddEdge(x - 1, y - 1, w);
   }
-  cout << g.Prims_MST();
+  int src;
+  cin >> src;//source will be given by user
+  g.Dijkstras(src - 1);
 }
