@@ -32,9 +32,10 @@ public:
 				}
 			}
 		}
-		for(auto node : l)
-			cout << "Distance of " << node.first + 1 << " from src " << src + 1 << " is " <<
-						distance[node.first] << endl;
+		for(auto node : l) {
+			cout << "Distance of " << node.first << " from src " << src << " is: " <<
+						distance[node.first] << endl; 
+		}
 	}
 };
 int32_t main() {
@@ -44,9 +45,9 @@ int32_t main() {
 	for(int i = 0; i < m; i++) {
 		int x, y, w;
 		cin >> x >> y >> w;
-		g.AddEdge(x - 1, y - 1, w);
+		g.AddEdge(x, y, w);
 	}
 	int src;
 	cin >> src;//source will be given by user
-	g.Dijkstras(src - 1);
+	g.Dijkstras(src);
 }
