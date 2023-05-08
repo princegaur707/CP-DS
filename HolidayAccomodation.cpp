@@ -1,3 +1,5 @@
+//Observations:
+//N nodes N -1  edges implies no cycle as all nodes are connected that's why DFS can be applied
 #include<bits/stdc++.h>
 using namespace std;
 int n;
@@ -9,16 +11,16 @@ public:
 		m[x].push_back({y, distance});
 		m[y].push_back({x, distance});
 	}
-	int DFS(T node, unordered_map<T, bool>&visited, int *count, int &ans) {
+	int DFS(T node, unordered_map<T, bool>&visited, int *count, int &ans) {//& with ans is must as we want to save 
 		visited[node] = true;
-		count[node] = 1;
+		count[node] = 1;//counting itself
 		for(auto children: m[node]) {
-			int dx = children.second;
+			int dx = children.second;//representing distance or weight of edge
 			if(!visited[children.first]){
 				count[node] += DFS(children.first, visited, count, ans); 
 				int right = count[children.first];
-				int left = n - right;
-				ans += 2 *  min(left, right) * dx;
+				int left = n - right;//as remaining nodes will be on left
+				ans += 2 *  min(left, right) * dx;//fixed formula in this situation
 			}
 		}
 		return count[node];
@@ -29,7 +31,7 @@ public:
 		for(int i = 0; i < n; i++)
 			count[i] = 0;
 		int ans = 0;
-		DFS(0, visited, count, ans);
+		DFS(0, visited, count, ans);//considering 0 as starting point
 		return ans;
 	}
 };
@@ -41,10 +43,10 @@ int main() {
 		cnt++;
 		Graph<int>g;
 		cin >> n;
-		for(int i = 1; i < n; i++) {
+		for(int i = 1; i < n; i++) { //1 to n => n - 1 edges
 			int x, y, z;
 			cin >> x >> y >> z;
-			g.AddEdge(x - 1, y - 1, z);
+			g.AddEdge(x - 1, y - 1, z);//Taking from '0' only
 		}
 		cout << "Case #" << cnt << ": " << g.Holiday() << endl;
  	}

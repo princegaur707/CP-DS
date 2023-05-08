@@ -1,54 +1,50 @@
 #include<bits/stdc++.h>
 using namespace std;
-#define int long long
+int n;
 template<typename T>
 class Graph {
-  unordered_map<T,list<pair<T, int>>>l;
+  unordered_map<T, list<pair<T, int>>>m;
 public:
-  void AddEdge(T x, T y, int w) {
-    l[x].push_back({y, w});
-    l[y].push_back({x, w});
+  void AddEdge(T x, T y, int distance) {
+    m[x].push_back({y, distance});
+    m[y].push_back({x, distance});
   }
-  void Dijkstras(int src) {
-    unordered_map<T, int>distance; //will use distance only for visited
-    set<pair<int, int>>s;
-    for(auto x : l) 
-      distance[x.first] = INT_MAX;
-    distance[src] = 0;
-    s.insert({0, src});//weight, node
-    int cnt = 0;
-    while(!s.empty()) {
-      auto p = *(s.begin());
-      s.erase(s.begin());
-      T node = p.second;
-      T parent_weight = p.first;
-      for(auto children : l[node]) {
-        int edge_weight = children.second;
-        if(distance[children.first] > parent_weight + edge_weight) {
-          auto f = s.find({distance[children.first], children.first});
-          if(f != s.end())
-            s.erase(f);
-          distance[children.first] = parent_weight + edge_weight; 
-          s.insert({distance[children.first], children.first});
-        }
+  int DFS(T node, unordered_map<T, bool>&visited, int *nodes_till_here, int &ans) {
+    visited[node] = true;
+    nodes_till_here[node] = 1;
+    for(auto children: m[node]) {
+      int dx = children.second;
+      if(!visited[children.first]) {
+        nodes_till_here[node] += DFS(children.first, visited, nodes_till_here, ans);
+        int right = nodes_till_here[children.first];
+        int left = n - right;
+        ans += 2 * min(left, right) * dx;
       }
     }
-    for(auto node : l) {
-      cout << "Distance of " << node.first + 1 << " from src " << src + 1 << " is " <<
-            distance[node.first] << endl; 
-    }
+    return nodes_till_here[node];
+  }
+  int Holiday() {
+    unordered_map<T, bool>visited;
+    int *nodes_till_here = new int[n];
+    int ans = 0;
+    memset(nodes_till_here, 0, sizeof(nodes_till_here));
+    DFS(0, visited, nodes_till_here, ans);
+    return ans;
   }
 };
-int32_t main() {
-  int n, m;
-  cin >> n >> m;
+int main() {
   Graph<int>g;
-  for(int i = 0; i < m; i++) {
-    int x, y, w;
-    cin >> x >> y >> w;
-    g.AddEdge(x - 1, y - 1, w);
+  int t;
+  cin >> t;
+  int count = 1;
+  while(t--) {
+    cin >> n;
+    for(int i = 0; i < n - 1; i++) {
+      int x, y, z;
+      cin >> x >> y >> z;
+      g.AddEdge(x - 1, y - 1, z);
+    }
+    cout << "Case #" << count << ": " <<g.Holiday() << endl;
+    count++;
   }
-  int src;
-  cin >> src;//source will be given by user
-  g.Dijkstras(src - 1);
 }
