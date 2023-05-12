@@ -1,50 +1,88 @@
 #include<bits/stdc++.h>
 using namespace std;
-int n;
-template<typename T>
-class Graph {
-  unordered_map<T, list<pair<T, int>>>m;
+// const int N = 0;
+
+
+class dsu {
+  vector<int>parent, rank;
+  int totalcomponents;
 public:
-  void AddEdge(T x, T y, int distance) {
-    m[x].push_back({y, distance});
-    m[y].push_back({x, distance});
-  }
-  int DFS(T node, unordered_map<T, bool>&visited, int *nodes_till_here, int &ans) {
-    visited[node] = true;
-    nodes_till_here[node] = 1;
-    for(auto children: m[node]) {
-      int dx = children.second;
-      if(!visited[children.first]) {
-        nodes_till_here[node] += DFS(children.first, visited, nodes_till_here, ans);
-        int right = nodes_till_here[children.first];
-        int left = n - right;
-        ans += 2 * min(left, right) * dx;
-      }
+  dsu(int n) {
+    parent.resize(n);
+    rank.resize(n);
+    for (int i = 0; i < n; i++) {
+      parent[i] = i, rank[i] = 0;
     }
-    return nodes_till_here[node];
+    totalcomponents = n;
   }
-  int Holiday() {
-    unordered_map<T, bool>visited;
-    int *nodes_till_here = new int[n];
-    int ans = 0;
-    memset(nodes_till_here, 0, sizeof(nodes_till_here));
-    DFS(0, visited, nodes_till_here, ans);
-    return ans;
+
+  int find_set(int a) {
+    if (a == parent[a]) {
+      return a;
+    }
+    return parent[a] = find_set(parent[a]);
+  }
+
+  void union_set(int a, int b) {
+    a = find_set(a);
+    b = find_set(b);
+
+    if (a != b) {
+      if (rank[a] < rank[b]) {
+        swap(a, b);
+      }
+      parent[b] = a;
+      if (rank[a] == rank[b]) {
+        rank[a]++;
+      }
+      totalcomponents--;
+    }
   }
 };
+
+
+int c[200005][26];
 int main() {
-  Graph<int>g;
   int t;
   cin >> t;
-  int count = 1;
-  while(t--) {
-    cin >> n;
-    for(int i = 0; i < n - 1; i++) {
-      int x, y, z;
-      cin >> x >> y >> z;
-      g.AddEdge(x - 1, y - 1, z);
+  int n, k;
+  string s;
+
+  while (t--) {
+    cin >> n >> k >> s;
+    dsu g(n);
+    //Joining According to condition 1:
+    for (int i = 0; i < n; i++) {
+      g.union_set(i, n - i - 1);
     }
-    cout << "Case #" << count << ": " <<g.Holiday() << endl;
-    count++;
+    //according to condition 2:
+    for (int i = 0; i < n - k; i++) {
+      g.union_set(i, i + k);
+    }
+
+    for (int i = 0; i < n; i++) {
+      for (int j = 0; j < 26; j++) {
+        c[i][j] = 0;
+      }
+    }
+
+    for (int i = 0; i < n; i++) {
+      c[g.find_set(i)][s[i] - 'a']++;
+    }
+
+    int ans = 0;
+    for (int i = 0; i < n; i++) {
+      if (g.find_set(i) == i) {
+        int sum = 0;
+        int max_occuring_character = 0;
+        //row represent ek component
+        for (int j = 0; j < 26; j++) {
+          sum += c[i][j];
+          max_occuring_character = max(max_occuring_character, c[i][j]);
+        }
+        ans += sum - max_occuring_character;
+      }
+    }
+    cout << ans << endl;
   }
 }
