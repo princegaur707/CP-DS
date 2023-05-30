@@ -26,7 +26,7 @@ public:
 			parent[b] = a;
 			if (rank[a] == rank[b])
 				rank[a]++;
-			totalcomponents--;
+			totalcomponents--;//as we are combining two components so decrease total components by one
 		}
 	}
 };
@@ -45,16 +45,12 @@ int main() {
 		//Joining acc. to condn 2 (i -> i + k)
 		for(int i = 0; i < n - k; i++)
 			g.Union_Set(i, i + k);
-		for (int i = 0; i < n; i++) {
-			for (int j = 0; j < 26; j++) {
-				c[i][j] = 0;
-			}
-		}
+		memset(c, 0, sizeof(c));
 		for(int i = 0; i < n; i++) 
 			c[g.Find_Set(i)][s[i] - 'a']++;
 		int ans = 0;
 		for(int i = 0; i < n; i++) {
-			if(g.Find_Set(i) == i) {//implies it is super parent
+			if(g.Find_Set(i) == i) {//implies we hit the super_parent
 				int total_frequency = 0;
 				int max_occuring_char = 0;
 				//row represent one component
